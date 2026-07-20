@@ -21,4 +21,9 @@ try {
 } catch(Exception $e) {
     die("数据库连接失败: " . $e->getMessage());
 }
+// ====================== 菜单管理函数 ======================
+// 获取底部菜单按钮
+function getMenuButtons($pdo) {
+    return $pdo->query("SELECT * FROM menu_buttons WHERE is_active=1 ORDER BY sort_order ASC")->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>
