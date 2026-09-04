@@ -1,0 +1,151 @@
+{include file="common/header" /}
+<div id="app">
+    <div class="content" v-if="!isLoading">
+        <div class="con_top" @click="backPage">
+            <span><img src="__CDN__/assets/monochrome/img/230404pc_icon12.png"></span><em>{:__("Withdraw_Title")}</em>
+        </div>
+        <div class="row">
+            <div class="con_bd">
+                <h2><em>{:__("Withdraw_Handling_fee")} {{fee}}%</em></h2>
+                <div class="con_in">
+                    <input type="text" v-model="amount" placeholder="{:__('Enter the amount of withdraw')}"/>
+                </div>
+                <h2 class="clearflx mar_t14">
+                    <em>{:__('Withdraw_Balance')}: {{userInfo.balance}}</em>
+                    <a class="f_r color3" @click="allAmount">{:__('Withdraw_All')}</a>
+                </h2>
+            </div>
+            <div class="con_bd mar_t20">
+                <ul>
+                    <li class="clearflx li li2"><span class="f_l bold">{:__('Withdraw_Transaction_Pass')}</span>
+                        <div class="con_hd_r">
+                            <input type="password" v-model="pay_password" placeholder="{:__('Withdraw_Enter_password')}"/>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="con_anniu">
+            <button class="con_button" type="button" @click="submit">{:__("Withdraw_Submit")}</button>
+        </div>
+    </div>
+</div>
+<script>
+    const app = Vue.createApp({
+        setup() {
+            const isLoading = Vue.ref(true)
+            const fee = Vue.ref(0)
+            const userInfo = Vue.ref({})
+            const address = Vue.ref({})
+            const amount = Vue.ref('')
+            const pay_password = Vue.ref('')
+            var loading = layer.load(2, {
+                shade: [0.1, '#000'] //0.1透明度的白色背景
+            });
+
+            const backPage = () => {
+                window.history.go(-1)
+            }
+
+            const check = () => {
+                if (amount.value == '') {
+                    layer.msg('{:__("Amount empty")}');
+                    return false;
+                }
+                if (pay_password.value == '') {
+                    layer.msg('{:__("Please input pay password")}');
+                    return false;
+                }
+                return true;
+            }
+
+            const submit = () => {
+                if (check()) {
+                    loading = layer.load(2, {
+                        shade: [0.1, '#000'] //0.1透明度的白色背景
+                    });
+                    axios.post('/user/do_deposit',{paypassword:pay_password.value,num: amount.value}).then(function (result) {
+                        layer.close(loading);
+                        // 加载状态结束
+                        var res = result.data
+                        if (res.code == 401) {
+                            $(document).dialog({
+                                infoText: res.msg,
+                                autoClose: 2000
+                            });
+                            setTimeout(function () {
+                                window.location.href = '/user/login'
+                            }, 2000)
+                            return false
+                        }
+                        if (res.code == 1) {
+                            layer.msg('Success!');
+                            setTimeout(function () {
+                                window.location.href = '/user/deposit';
+                            }, 2000);
+                        } else {
+                            layer.msg(res.msg);
+                        }
+                    })
+                }
+            }
+
+            const allAmount = () => {
+                amount.value = userInfo.value.balance
+            }
+
+            const getDepositData = () => {
+                axios.post('/user/deposit').then(function (result) {
+                    layer.close(loading);
+                    isLoading.value = false;
+                    // 加载状态结束
+                    var res = result.data
+                    if (res.code == 401) {
+                        $(document).dialog({
+                            infoText: res.msg,
+                            autoClose: 2000
+                        });
+                        setTimeout(function () {
+                            window.location.href = '/user/login'
+                        }, 2000)
+                        return false
+                    }
+                    if (res.code) {
+                        fee.value = res.data.shouxu * 100
+                        userInfo.value = res.data.user
+                        address.value = res.data.address
+                        if (address.value.address == '****') {
+                            loading = layer.load(2, {
+                                shade: [0.1, '#000'] //0.1透明度的白色背景
+                            });
+                            layer.msg('{:__("Unbound bank card, go to bind!")}')
+                            setTimeout(function () {
+                                layer.close(loading);
+                                window.location.href = '/user/bind_address';
+                            }, 2000);
+                        }
+
+                    }
+                })
+            }
+
+            getDepositData()
+
+            return {
+                fee,
+                pay_password,
+                userInfo,
+                address,
+                amount,
+                isLoading,
+                backPage,
+                check,
+                submit,
+                allAmount,
+                getDepositData,
+            };
+        },
+    });
+    app.mount("#app");
+</script>
+{include file="common/footer" /}

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" class="deeppurple-theme">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no">
+  <meta name="description" content="">
+  <meta name="google-site-verification" content="rUPJ2A9Zv6J2t9weFM4w8JKB59jAcDG-8ZvXdPVJM2M" />
+  <title>{:__("Home_Hello")}</title>
+  <style type="text/css" title="fading circle style">
+    @font-face {
+      font-family: 'Material Icons';
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+  <link rel="stylesheet" href="/assets/prefeshop/css/content1.css"><!-- Bootstrap core CSS -->
+  <link href="/assets/prefeshop/css/bootstrap.min.css" rel="stylesheet"><!-- Swiper CSS -->
+  <link href="/assets/prefeshop/css/swiper-bundle.min.css" rel="stylesheet"><!-- Custom styles for this template -->
+  <link href="/assets/prefeshop/css/mui.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/prefeshop/css/public.css">
+</head>
+
+<body style="background-color: #fff;">
+  <div class="wrapper homepage">
+    <!-- header -->
+    <div>
+      <span class="btn" style="padding-left: 15px; text-align: left; width: 100%; height: 50px;font-size: 1.3333rem;font-family: Poppins;color: #000;font-weight: 800;">
+        {:__("Home_Hello1")}
+      </span>
+    </div>
+
+    <!-- banner -->
+    <div class="container" style="padding:0">
+      <div class="swiper-container swiper-container-banner swiper-container-horizontal swiper-container-ios">
+        <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+          <div class="swiper-slide swiper-slide-active" style="width: 100%;"><a href="/"><img
+                src="/assets/prefeshop/picture/acf91f94e1918b49.png" style="width: 100%; height: 150px"></a></div>
+          <div class="swiper-slide swiper-slide-active" style="width: 100%;"><a href="/"><img
+                src="/assets/prefeshop/picture/d40cb2f55b080160.png" style="width: 100%; height: 150px"></a></div>
+        </div><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+      </div>
+    </div><br>
+
+    <div class="list">
+      <a class="item" href="/index/ctrl/recharge">
+        <div class="top">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAaJJREFUWEft179LVlEcx/GXpNAYSDUIbSq4OIRRmyBIRP0Bjk4OLi6ZDg6NVhCioJO01RQEgRA4OOmiODk7CYY2lIs/kwM3eHi813tPz30eRZ/veM/3fL/v8/mec+73tLhm1nLNeDSB8irSVKgWhZ5iAK15QSLGd/AZB1lzsko2ilnqsum38Ay/06DSgNrwE/ciVh7rOoaZokDt2IvNEOn/Aa/rAXSKZWzjbwTUD3wtG+gYLxGCl2Zpe6hoyb5gqDSSJFAtQNOYSOK8RWck3B+MVM8pC2gV4d6KsXBw7t9aoBNs4hEeZMjWMIUO0Y813MU3DKZANQxoCS8qAJ4jfKu2hgFt4HFF9mEsXiVQyD2HeXRhAQ+vGqjI8W9YyYrABJ+bD/Qe44kcff/RPx1hpcybeh1PcFa0RkX8avmXhfifMIndIskqfDJ7p1qBQo4QPMgfYx+ThVyYkwYUeulfdWrw/wG8w5u0FWS9OsKPsTdmyZG+r/A9Bqgn6Xm7IxPluYfSBnWmshwve0qHsQ7cycsSMb5/2SMxxGm+7fPUbCqUp9A5FbpkJYFRsbAAAAAASUVORK5CYII=" />
+        </div>
+        <div class="bottoms">pay</div>
+      </a>
+
+      <a class="item" href="/index/ctrl/deposit">
+        <div class="top"><img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAaZJREFUWEft1z1LHUEUxvGfgZBCCGgUa2OqgAixEwJWVuILIpgiaUVJlQ/gN0hpAkkrVoJo4wcwkEawEgtJioAiQiSlQUjCwArr9bI7c+/qCrnb7c55+c9zZufMdLlnT9c949EBKqtIR6F2FerHK/SUBUoYv8A2Dpv5FJVsEF8xkJAs1vQS09hpdCgCWsVybIYW7PbxIgVoC1MtJIp1+Ym+FKAljMRGxwM8xxhR+1syUALLNdNFfIyAujOgQLeH0ZIZRQN143ML8uxmygTXDcxVBdSLQJ/6rOF15vR/A/3ALww3LNxaFPqEsB38wQLWc1C1AA3he25xHeFZ9l4L0Et8yQAe4RhP6gQKHfotzrGC2ZxatShUtBV0gMo2yltT6CHGy7I3GT/BQfZ9EzNVtY4WWK65hF74LeKkGd1c89FTbyVP8QETEbNKBgoNcjIi8JVJgA/ljp1EMlDMOkjgvWF61qysRbN5h/ftZCzxDRWYb7QpAgryh2b6JjsvV8X2N7tehQPcaQrQlW24JD6uiga/m4HkF2KFudoPFftHtJ8pMkIHqEyof6hvXCWwHbGbAAAAAElFTkSuQmCC"
+            alt=""></div>
+        <div class="bottoms">with</div>
+      </a>
+      
+      <a class="item" href="/index/my/invite">
+        <div class="top"><img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAmVJREFUWEft10voTVEUx/HP36OQlEiRhGIkA2RgKq+Jx4wYKO9XIkoGHiUMhPJ+jbxGUso7cwOPMiQx8CgxIK8itLSv/v/Tufecv3tP/Qd3T849d++91vestfZvndOhh42OHsajDVSUkXaEWhWhETiMORhQZDQz/xU3sAlvivaWSdlAPMK4ImMF888wCZ8brSsDtB5HmoSpbd+Ao80CncDqHCO/cQ+vMQNxfxcjMZ1cSTmJNc0CncLKHCPLcS79PyhdP6XrMpzN2XMaq6oAeokxBWl8gdGZNZUBRYGOLwB6mnMQKgOKepmPa3Wg5uFqTh1VBhQc37AAtzNQsxJM/6pqaBv21jk13xPUreR8doLpV+dUbsf+Zoq6F34hHB3D2BxjARVHOTTtOPJgosDX4Sb64Gc9qHrCOBehP0NxCVsRLWAHNqNvSaH8gUPYjVD8A1iID1ibotnFVB5QaEqIXRiojfcJ5DwmILRpWgHU/aQ5T7A0wQzptOcLokfWtOvvVB5Q9JuHdZzdSaodOhRiuQ+DM2s/ImolVDlSHNdQ7rwxOfXJf3N5QLHoQYOnjyfbmbp/pDRSEmmIcQUb8Q5bUorzTlvN/JTsw/8PUM1YRHEFHmNmqqvrmIozmFiizloKFP7itBzELvTGHsTbQfwuM1oOVHP6PEVoVBmKTmsqA+omx7/lbaCiyJWKUCMdKnLQ3flSOjQMbxF9rMoRPXJ40qyGwhiTF7C4ShpcxJKsj3rNNb694mVqUQWRishcTq0nGnaXUfQZFOmLr4iidWWDGW+ar7Jp6ry5VY7KAhWuawMVhajHRegPkxl4JZjBk4cAAAAASUVORK5CYII="
+            alt=""></div>
+        <div class="bottoms">intive</div>
+      </a><a class="item" href="/index/my/detail.html?id=3">
+        <div class="top"><img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAVhJREFUWEft1z8uRUEUx/HPI7EBERELkIjKn4ZGYgdo6GzABoSC2IAN6GiwA4lCSPxtFOhFRDRKEWQST/Hc9+Z6c4uXmNNMcWbO/c5vTm5+p6bDotZhPDJQ7EXKKtSDIYS1nXjDHcLaMsoALWILvbFikfwLlrHTal8MaBqH6EqEqR//wAyOmtWLAe1jtiKYepkDzLULdIaJhsOP2CzRD6HfVjDQcP6ioObPlphC5xhvKBhUmy+p2l6BGpcFNZOAPnFTUqERfv3rKgcqKU7TbRkopmBWKCsUUyCWzz2UFYopEMvnHvqfCr3iPnb1Ev59FFepfmgMw7itAOgd11UAdSMYs5QI7jQZ6BiT6EMYY1IijFHPOMVUuyZ/FevflvUkheb7YsHSrmGjXaAwOWxjocAb/5UvPPkullr58djUUf/oIPoToALMEx5itygLFKtTWT4DxaTsOIW+AAj+UCX4DpXkAAAAAElFTkSuQmCC" />
+        </div>
+        <div class="bottoms">i_gsjs2</div>
+      </a><a class="item" href="/index/my/auth.html?id=3">
+        <div class="top"><img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAVhJREFUWEft1z8uRUEUx/HPI7EBERELkIjKn4ZGYgdo6GzABoSC2IAN6GiwA4lCSPxtFOhFRDRKEWQST/Hc9+Z6c4uXmNNMcWbO/c5vTm5+p6bDotZhPDJQ7EXKKtSDIYS1nXjDHcLaMsoALWILvbFikfwLlrHTal8MaBqH6EqEqR//wAyOmtWLAe1jtiKYepkDzLULdIaJhsOP2CzRD6HfVjDQcP6ioObPlphC5xhvKBhUmy+p2l6BGpcFNZOAPnFTUqERfv3rKgcqKU7TbRkopmBWKCsUUyCWzz2UFYopEMvnHvqfCr3iPnb1Ev59FFepfmgMw7itAOgd11UAdSMYs5QI7jQZ6BiT6EMYY1IijFHPOMVUuyZ/FevflvUkheb7YsHSrmGjXaAwOWxjocAb/5UvPPkullr58djUUf/oIPoToALMEx5itygLFKtTWT4DxaTsOIW+AAj+UCX4DpXkAAAAAElFTkSuQmCC" />
+        </div>
+        <div class="bottoms">i_gsjs5</div>
+      </a></div><br><br><!-- 分类-->
+    <div class="title">
+      <div>Mobile Gadgets</div><a style="color: #2f80ef;" href="/index/goods?cate_id=1">catemore</a>
+    </div>
+    <div class="goodList">
+      <div class="goodsItem"><a href="/index/goods/view?id=752"><img src="/assets/prefeshop/picture/78dc06f681b32c45.jpg" />
+          <div class="bottom">
+            <div class="line1">ASUS TUF Gaming F15 </div>
+            <div class="line2">780.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">780.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=121"><img src="/assets/prefeshop/picture/f8c1f91395905a3d.png" />
+          <div class="bottom">
+            <div class="line1">Berkel Home Line 200</div>
+            <div class="line2">598.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">598.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=652"><img src="/assets/prefeshop/picture/61cd94d2dddf7e0c.png" />
+          <div class="bottom">
+            <div class="line1">Cancelled - Hilariou</div>
+            <div class="line2">20.99<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">20.99USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=324"><img src="/assets/prefeshop/picture/96be7db197784620.jpg" />
+          <div class="bottom">
+            <div class="line1">Apple AirTag 1 Pack</div>
+            <div class="line2">45.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">45.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=774"><img src="/assets/prefeshop/picture/515c57e25b10aa07.jpg" />
+          <div class="bottom">
+            <div class="line1">Accessories Set for </div>
+            <div class="line2">23.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">23.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=264"><img src="/assets/prefeshop/picture/5d343c8b2d7e5987.png" />
+          <div class="bottom">
+            <div class="line1">ULTRA FUEGO Power Ca</div>
+            <div class="line2">330.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">330.00USD
+              </label></div>
+          </div>
+        </a></div>
+    </div><!-- 分类-->
+    <div class="title">
+      <div>Home Appliance</div><a style="color: #2f80ef;" href="/index/goods?cate_id=2">catemore</a>
+    </div>
+    <div class="goodList">
+      <div class="goodsItem"><a href="/index/goods/view?id=412"><img src="/assets/prefeshop/picture/5ef93758c96cc802.jpg" />
+          <div class="bottom">
+            <div class="line1">55&quot; Class QLED 4K Q7</div>
+            <div class="line2">999.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">999.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=379"><img src="/assets/prefeshop/picture/9b1e9a40d05529df.jpg" />
+          <div class="bottom">
+            <div class="line1">Small household dehu</div>
+            <div class="line2">45.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">45.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=409"><img src="/assets/prefeshop/picture/745c40d1b39f0583.jpg" />
+          <div class="bottom">
+            <div class="line1">&quot;Flagship Tineco FLO</div>
+            <div class="line2">899.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">899.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=413"><img src="/assets/prefeshop/picture/74156dfd86ee76a0.jpg" />
+          <div class="bottom">
+            <div class="line1">LG TH2111SSAB 11kg, </div>
+            <div class="line2">1075.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">1075.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=419"><img src="/assets/prefeshop/picture/5776a9eb4f24a353.jpg" />
+          <div class="bottom">
+            <div class="line1">Samsung 65&quot; AU7002 U</div>
+            <div class="line2">1499.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">1499.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=408"><img src="/assets/prefeshop/picture/0e1e6f2317a36994.jpg" />
+          <div class="bottom">
+            <div class="line1">PHILIPS 2-in-1 Dehum</div>
+            <div class="line2">709.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">709.00USD
+              </label></div>
+          </div>
+        </a></div>
+    </div><!-- 分类-->
+    <div class="title">
+      <div>Computer Equipment</div><a style="color: #2f80ef;" href="/index/goods?cate_id=3">catemore</a>
+    </div>
+    <div class="goodList">
+      <div class="goodsItem"><a href="/index/goods/view?id=458"><img src="/assets/prefeshop/picture/1cb2d7b20726fc10.png" />
+          <div class="bottom">
+            <div class="line1">Galaxy Book3 360</div>
+            <div class="line2">999.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">999.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=441"><img src="/assets/prefeshop/picture/703eb3499a1f7fff.jpg" />
+          <div class="bottom">
+            <div class="line1">Upto 25 hrs long |Pr</div>
+            <div class="line2">109.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">109.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=449"><img src="/assets/prefeshop/picture/9b65f508add91ed2.jpg" />
+          <div class="bottom">
+            <div class="line1">AOC 24G2SP 23.8&rsquo;&rsquo; IP</div>
+            <div class="line2">269.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">269.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=455"><img src="/assets/prefeshop/picture/b07f78c7d06ddc49.jpg" />
+          <div class="bottom">
+            <div class="line1">Samsung Smart Laser </div>
+            <div class="line2">798.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">798.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=452"><img src="/assets/prefeshop/picture/323ef68e99612f36.jpg" />
+          <div class="bottom">
+            <div class="line1">Mac mini Apple M1 ch</div>
+            <div class="line2">459.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">459.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=435"><img src="/assets/prefeshop/picture/32b2e5463c347f3a.jpg" />
+          <div class="bottom">
+            <div class="line1">TP-LINK TL-SG105 Fiv</div>
+            <div class="line2">29.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">29.00USD
+              </label></div>
+          </div>
+        </a></div>
+    </div><!-- 分类-->
+    <div class="title">
+      <div>Sport Stuff</div><a style="color: #2f80ef;" href="/index/goods?cate_id=4">catemore</a>
+    </div>
+    <div class="goodList">
+      <div class="goodsItem"><a href="/index/goods/view?id=473"><img src="/assets/prefeshop/picture/38c3ebed9044d0d1.jpg" />
+          <div class="bottom">
+            <div class="line1">Adidas Anti-burst Gy</div>
+            <div class="line2">36.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">36.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=474"><img src="/assets/prefeshop/picture/a284e00d8d9c2d8a.jpg" />
+          <div class="bottom">
+            <div class="line1">Bosu Ball, Wave Spee</div>
+            <div class="line2">42.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">42.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=477"><img src="/assets/prefeshop/picture/c2866390c7bfe91e.jpg" />
+          <div class="bottom">
+            <div class="line1">Portable Professiona</div>
+            <div class="line2">65.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">65.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=487"><img src="/assets/prefeshop/picture/a6444e38d1414ef0.jpg" />
+          <div class="bottom">
+            <div class="line1">OneTwoFit Adjustable</div>
+            <div class="line2">199.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">199.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=471"><img src="/assets/prefeshop/picture/4adcd4bf482968a9.jpg" />
+          <div class="bottom">
+            <div class="line1">New Slimming Hula Ho</div>
+            <div class="line2">22.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">22.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=482"><img src="/assets/prefeshop/picture/d41fb76f1adc9c10.jpg" />
+          <div class="bottom">
+            <div class="line1">Manduka enlight Roun</div>
+            <div class="line2">129.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">129.00USD
+              </label></div>
+          </div>
+        </a></div>
+    </div><!-- 分类-->
+    <div class="title">
+      <div>Fashion</div><a style="color: #2f80ef;" href="/index/goods?cate_id=5">catemore</a>
+    </div>
+    <div class="goodList">
+      <div class="goodsItem"><a href="/index/goods/view?id=740"><img src="/assets/prefeshop/picture/9a81d470faa4018a.jpg" />
+          <div class="bottom">
+            <div class="line1">Roselux Women's Sexy</div>
+            <div class="line2">26.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">26.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=629"><img src="/assets/prefeshop/picture/e438ad216a65f412.jpg" />
+          <div class="bottom">
+            <div class="line1">Diamond Rolex Sky Dw</div>
+            <div class="line2">169522.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">169522.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=531"><img src="/assets/prefeshop/picture/18bd49d3852bbf75.jpg" />
+          <div class="bottom">
+            <div class="line1">Pacific Chill</div>
+            <div class="line2">300.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">300.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=561"><img src="/assets/prefeshop/picture/ed8f579e7d612486.jpg" />
+          <div class="bottom">
+            <div class="line1">Twist Lock XL</div>
+            <div class="line2">4989.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">4989.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=628"><img src="/assets/prefeshop/picture/c53196a443ae7c42.jpg" />
+          <div class="bottom">
+            <div class="line1">Rolex Daytona | Rose</div>
+            <div class="line2">115795.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">115795.00USD
+              </label></div>
+          </div>
+        </a></div>
+      <div class="goodsItem"><a href="/index/goods/view?id=563"><img src="/assets/prefeshop/picture/152478ac903bae10.jpg" />
+          <div class="bottom">
+            <div class="line1">MEDIUM LADY D-LITE B</div>
+            <div class="line2">5811.00<span class="USD">USD</span><label
+                style="color: #bdbdbd;font-size: .75rem;font-weight: normal;margin-left: .25rem ;text-decoration: line-through;">5811.00USD
+              </label></div>
+          </div>
+        </a></div>
+    </div><!-- footer-->
+    <style>
+      .title {
+        margin: 20px 15px 10px;
+        color: #6d6d72;
+        font-size: 15px;
+      }
+
+      .oa-contact-cell.mui-table .mui-table-cell {
+        padding: 11px 0;
+        vertical-align: middle;
+      }
+
+      .oa-contact-cell {
+        position: relative;
+        margin: -11px 0;
+      }
+
+      .oa-contact-avatar {
+        width: 75px;
+      }
+
+      .oa-contact-avatar img {
+        border-radius: 50%;
+      }
+
+      .oa-contact-content {
+        width: 100%;
+      }
+
+      .oa-contact-name {
+        margin-right: 20px;
+      }
+
+      .oa-contact-name,
+      oa-contact-position {
+        float: left;
+      }
+
+      .mui-bar-tab {
+        background-color: #fff;
+        box-shadow: none
+      }
+    </style>
+    <style type="text/css" title="fading circle style">
+      @font-face {
+        font-family: 'Material Icons';
+        font-style: normal;
+        font-weight: 400;
+        src: url(/static_new/img/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+      }
+
+      .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-smoothing: antialiased;
+        transform: translateY(2px);
+      }
+
+      #service {
+        width: 161px;
+        height: 450px;
+        position: fixed;
+        bottom: 10px;
+        right: 0px;
+        z-index: 0;
+      }
+
+      #service li {
+        width: 161px;
+        height: 60px;
+      }
+
+      #service li img {
+        float: right;
+      }
+
+      ol,
+      ul {
+        list-style: none
+      }
+
+      ul,
+      li {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-size: 100%;
+        vertical-align: baseline;
+        background: transparent
+      }
+    </style>
+    <nav class="mui-bar mui-bar-tab"><a class="mui-tab-item mui-active" href="/index/index/index.html"><span
+          class="material-icons">home</span></a><a class="mui-tab-item " href="/index/rot_order/index.html"><span
+          class="material-icons">swipe</span></a><a class="mui-tab-item " href="/index/order"><span
+          class="material-icons">playlist_add_check</span></a><a class="mui-tab-item " href="/index/my/index.html"><span
+          class="material-icons">person</span></a></nav>
+    <div id="service">
+      <ul>
+        <li><a
+            href="http://kf.bolon7.com/index/index/home?visiter_id=&amp;visiter_name=&amp;avatar=&amp;groupid=0&amp;business_id=2"><img
+              src="/assets/prefeshop/picture/kf.png" class="shows"></a></li>
+      </ul>
+    </div><!-- footer ends--><!-- End of LiveChat code -->
+  </div>
+  <script type="text/javascript">
+    var app = {
+      'online_popup': "",
+    }
+  </script>
+  <script src="/assets/prefeshop/js/jquery-3.3.1.min.js"></script>
+  <script src="/assets/prefeshop/js/popper.min.js"></script>
+  <script src="/assets/prefeshop/js/bootstrap.min.js"></script><!-- swiper js -->
+  <script src="/assets/prefeshop/js/swiper-bundle.min.js"></script><!-- cookie js -->
+  <script src="/assets/prefeshop/js/jquery.cookie.js"></script>
+  <script charset="utf-8" src="/assets/prefeshop/js/dialog.min.js"></script>
+  <link rel="stylesheet" href="/assets/prefeshop/css/layer.css">
+  <script src="/assets/prefeshop/js/layer.js"></script>
+  <script charset="utf-8" src="/assets/prefeshop/js/jquery.progressbartimer.js"></script>
+  <script charset="utf-8" src="/assets/prefeshop/js/common.js"></script><!-- template custom js -->
+  <script src="/assets/prefeshop/js/main.js"></script><!-- page level script -->
+  <script>$(function () {
+      $('.footer').find('.btn-link-default').eq(0).addClass("active");
+
+      var bannerSwiper = new Swiper('.swiper-container-banner', {
+        slidesPerView: 1,
+        autoplay: true,
+      });
+
+      $('.tanchuangClose').click(function () {
+        $('#tanchuang').hide();
+        var date = new Date();
+        var minutes = 60 * 8;
+        date.setTime(date.getTime() + minutes * 60 * 1000);
+        $.cookie('tanchuang', 'none', {
+          expires: date
+        });
+      });
+      $('.announcement-task .a-t-items').click(function () {
+        if (!$(this).hasClass('not')) {
+          cid = $(this).data('cid');
+          window.location.href = '/index/rot_order/index.html?type=' + cid;
+        }
+      });
+
+      if ("none" != 'none' || sessionStorage.getItem('login_flag') == '1') {
+        setTimeout(function () {
+          $('.tanchuang').modal('show');
+        },
+          500);
+        sessionStorage.removeItem('login_flag');
+      }
+    });
+
+    (function ($) {
+      $.fn.textSlider = function (options) {
+        var defaults = {
+          scrollHeight: 25,
+          line: 1,
+          speed: 'normal',
+          timer: 2000
+        };
+        var opts = $.extend(defaults, options);
+        this.each(function () {
+          var timerID;
+          var obj = $(this);
+          var $ul = obj.children(".ul");
+          var $height = $ul.find(".card").height();
+          var $Upheight = 0 - opts.line * $height;
+          obj.hover(function () {
+            clearInterval(timerID);
+          },
+            function () {
+              timerID = setInterval(moveUp, opts.timer);
+            });
+          function moveUp() {
+            $ul.animate({
+              "margin-top": $Upheight
+            },
+              opts.speed,
+              function () {
+                for (i = 0; i < opts.line; i++) {
+                  $ul.find("li:first").appendTo($ul);
+                }
+                $ul.css("margin-top", 0);
+              });
+          };
+          timerID = setInterval(moveUp, opts.timer);
+        });
+      };
+    })(jQuery);
+
+    $(function () {
+      $(".agent_box").textSlider({
+        line: 1
+      });
+    });</script>
+</body>
+
+</html>

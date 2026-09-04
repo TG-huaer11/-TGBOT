@@ -1,0 +1,125 @@
+{include file="common/header" /}
+<style>
+    .yhk_div h1 {
+        font-size: var(--16px)
+    }
+
+    .yhk_div p {
+        font-size: var(--14px);
+        color: #fff;
+        text-align: left
+    }
+</style>
+<div id="app">
+    <div class="content" v-if="!isLoading">
+        <div class="con_top" @click="backPage">
+            <span><img src="__CDN__/assets/monochrome/img/230404pc_icon12.png"></span><em>{:__("Withdrawal_Address_Title")}</em>
+        </div>
+        <div class="row">
+            <div class="yhk_ul">
+                <ul>
+                    <li>
+                        <div class="yhk_div">
+                            <h1 style="">{:__("Withdrawal_Address_Title")}</h1>
+                            <p style="">{{info.address}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="con_anniu">
+            <button class="con_button" type="button" @click="delBank">{:__('Del')}</button>
+        </div>
+    </div>
+</div>
+<script>
+    const app = Vue.createApp({
+        setup() {
+
+            const info = Vue.ref([]);
+            const del = Vue.ref(0);
+            const isRequest = Vue.ref(false);
+            const isLoading = Vue.ref(true);
+            var loading = layer.load(2, {
+                shade: [0.1, '#000'] //0.1透明度的白色背景
+            });
+
+            const backPage = () => {
+                window.history.go(-1)
+            }
+
+            const getBankList = () => {
+                axios.post('/user/bind_address').then(function (result) {
+                    layer.close(loading)
+                    isLoading.value = false
+                    // 加载状态结束
+                    var res = result.data
+                    if (res.code == 401) {
+                        $(document).dialog({
+                            infoText: res.msg,
+                            autoClose: 2000
+                        });
+                        setTimeout(function () {
+                            window.location.href = '/user/login'
+                        }, 2000)
+                        return false
+                    }
+                    if (res.code) {
+                        del.value = res.data.del
+                        info.value = res.data.info
+                    }
+                })
+            }
+
+            const delBank = () => {
+                loading = layer.load(2, {
+                    shade: [0.1, '#000'] //0.1透明度的白色背景
+                });
+
+                if (isRequest.value) {
+                    return false
+                }
+
+                isRequest.value = true
+                axios.post('/user/bind_address_del').then(function (result) {
+                    layer.close(loading)
+                    isRequest.value = false
+                    // 加载状态结束
+                    var res = result.data
+                    if (res.code == 401) {
+                        $(document).dialog({
+                            infoText: res.msg,
+                            autoClose: 2000
+                        });
+                        setTimeout(function () {
+                            window.location.href = '/user/login'
+                        }, 2000)
+                        return false
+                    }
+                    if (res.code == 1) {
+                        layer.msg("{:__('Bank_Success')}")
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 2000);
+                    } else {
+                        layer.msg("{:__('Bank_Error')}")
+                    }
+                })
+            }
+
+            getBankList()
+
+            return {
+                info,
+                del,
+                isRequest,
+                isLoading,
+                backPage,
+                getBankList,
+                delBank,
+            };
+        },
+    });
+    app.mount("#app");
+</script>
+{include file="common/footer" /}

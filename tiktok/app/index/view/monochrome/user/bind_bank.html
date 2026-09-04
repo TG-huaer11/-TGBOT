@@ -1,0 +1,114 @@
+{include file="common/header" /}
+<div id="app">
+    <div class="content">
+        <div class="con_top" @click="backPage">
+            <span><img src="__CDN__/assets/monochrome/img/230404pc_icon12.png"></span><em>{:__("Bank_Title")}</em>
+        </div>
+        <div class="row">
+            <div class="con_bd">
+                <h1>{:__('Bank_Info')}</h1>
+                <ul>
+                    <li class="clearflx"><span class="f_l">{:__('Bank_Name')}</span>
+                        <div class="con_hd_r">
+                            <input type="text" v-model="username" placeholder="{:__('Please enter name')}"/>
+                        </div>
+                    </li>
+                </ul>
+                <h1 class="mar_t20">{:__('Bind')}</h1>
+                <ul>
+                    <li class="clearflx"><span class="f_l">{:__('Bank_Account')}</span>
+                        <div class="con_hd_r">
+                            <input type="text" v-model="card" placeholder="{:__('Please enter account')}"/>
+                        </div>
+                    </li>
+                    <li class="clearflx"><span class="f_l">{:__('IFSC')}</span>
+                        <div class="con_hd_r">
+                            <input type="text" v-model="ifsc" placeholder="{:__('Please enter IFSC')}"/>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="con_p">
+                <p>{:__("Bank_P1")}</p>
+                <p>{:__("Bank_P2")}</p>
+            </div>
+        </div>
+        <div class="con_anniu">
+            <button class="con_button" type="button" @click="submit">{:__("Bank_Save")}</button>
+        </div>
+    </div>
+</div>
+<script>
+    const app = Vue.createApp({
+        setup() {
+
+            const username = Vue.ref("");
+            const ifsc = Vue.ref("");
+            const card = Vue.ref("");
+            const isRequest = Vue.ref(false);
+            var loading = ''
+
+            const backPage = () => {
+                window.history.go(-1)
+            }
+
+            const submit = () => {
+                if (isRequest.value) {
+                    return false
+                }
+                if (username.value == '') {
+                    layer.msg("{:__('Please enter name')}");
+                    return false
+                }
+                if (ifsc.value == '') {
+                    layer.msg("{:__('Please enter IFSC')}");
+                    return false
+                }
+                if (card.value == '') {
+                    layer.msg("{:__('Please enter account')}");
+                    return false
+                }
+                loading = layer.load(2, {
+                    shade: [0.1, '#000'] //0.1透明度的白色背景
+                });
+
+                axios.post('/user/bindBank', {username: username.value,card: card.value, ifsc: ifsc.value}).then(function (res) {
+                    var result = res.data
+                    isRequest.value = false
+                    layer.close(loading);
+                    if (result.code == 401) {
+                        $(document).dialog({
+                            infoText: result.msg,
+                            autoClose: 2000
+                        });
+                        setTimeout(function () {
+                            window.location.href = '/user/login'
+                        }, 2000)
+                        return false
+                    }
+                    if (result.code == 1) {
+                        setTimeout(function () {
+                            layer.msg("Success");
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 2000);
+                        }, 2000);
+                    } else {
+                        layer.msg(result.msg);
+                    }
+                })
+            }
+
+            return {
+                username,
+                ifsc,
+                card,
+                isRequest,
+                backPage,
+                submit,
+            };
+        },
+    });
+    app.mount("#app");
+</script>
+{include file="common/footer" /}

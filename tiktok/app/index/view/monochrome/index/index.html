@@ -1,0 +1,245 @@
+{include file="common/header" /}
+<div id="app">
+    <div class="content" v-if="!isLoading">
+        <div class="fix_div" v-if="setting">
+            <div class="fix_ul">
+                <div class="fix_top">
+                    <div class="fix_logo">
+                        <img src="__CDN__/assets/monochrome/img/230404pc_logo2.png">
+                    </div>
+                    <div class="fix_tit clearflx">
+                        <span class="f_l"><img :src="info.headpic"></span>
+                        <div class="fix_tit_r">
+                            <h1>{{info.username}}</h1>
+                            <p>{:__('My_Index_Invitation_code')}:{{info.invite_code}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="fix_bottom_ul">
+                    <ul>
+                        <li @click="go('/user/personal')">
+                            <em>
+                                <span><img src="__CDN__/assets/monochrome/img/230404pc_icon9.png"></span>
+                                <i>{:__('My_Index_Personal')}</i>
+                            </em>
+                        </li>
+                        <li @click="go('/user/account')">
+                            <em>
+                                <span><img src="__CDN__/assets/monochrome/img/230404pc_icon20.png?sss"></span>
+                                <i>{:__("My_Index_Account")}</i>
+                            </em>
+                        </li>
+                        <li @click="go('/user/recharge_admin')">
+                            <em>
+                                <span><img src="__CDN__/assets/monochrome/img/230404pc_icon17.png"></span>
+                                <i>{:__("My_Index_Recharge")}</i>
+                            </em>
+                        </li>
+                        <li @click="go('/user/deposit_admin')">
+                            <em>
+                                <span><img src="__CDN__/assets/monochrome/img/230404pc_icon18.png"></span>
+                                <i>{:__("My_Index_Withdrawals")}</i>
+                            </em>
+                        </li>
+                        <li @click="go('/user/invite')">
+                            <em>
+                                <span><img src="__CDN__/assets/monochrome/img/230404pc_icon10.png?djfkasjff"></span>
+                                <i>{:__('My_Index_Invite_friends')}</i>
+                            </em>
+                        </li>
+                        <li @click="go('/user/proposal')">
+                            <em>
+                                <span><img src="__CDN__/assets/monochrome/img/230404pc_icon11.png?dsfasfsd"></span>
+                                <i>{:__('My_Index_Proposal')}</i>
+                            </em>
+                        </li>
+                        <li @click="loginOut">
+                            <em>
+                                <span><img src="__CDN__/assets/monochrome/img/230404pc_icon19.png"></span>
+                                <i>{:__("My_Index_Sign_out")}</i>
+                            </em>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="fix_ul_r" @click="showSetting"></div>
+        </div>
+        <div class="top">
+            <div class="top_div">
+                <div class="top_box clearflx">
+                    <div class="top_l f_l">
+                    <span @click="showSetting">
+                        <img src="__CDN__/assets/monochrome/img/230404pc_icon8.png" alt="">
+                    </span>
+                        <i>{{info.username}}</i>
+                    </div>
+                    <div class="top_r f_r hide">
+                        <span><img src="__CDN__/assets/monochrome/img/230404pc_icon6.png" alt=""></span>
+                    </div>
+                </div>
+                <div class="top_tit">
+                    <p>{:__('Available Balance Assets')}</p>
+                    <h1>{{info.balance}}</h1>
+                </div>
+            </div>
+            <div class="top_div2 clearflx">
+                <ul>
+                    <li>
+                        <a href="/user/recharge">
+                            <span><img src="__CDN__/assets/monochrome/img/230404pc_icon1.png" alt=""></span>
+                            <p>{:__('My_Index_Recharge')}</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/deposit">
+                            <span><img src="__CDN__/assets/monochrome/img/230404pc_icon4.png" alt=""></span>
+                            <p>{:__('My_Index_Withdrawals')}</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/invite">
+                            <span><img src="__CDN__/assets/monochrome/img/230404pc_icon2.png" alt=""></span>
+                            <p>{:__('Share')}</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/msg">
+                            <span><img src="__CDN__/assets/monochrome/img/230404pc_icon3.png" alt=""></span>
+                            <p>{:__('Service')}</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="con_span">
+            <span v-if="orderCount > 0">{:__('You have an order')}</span>
+        </div>
+        <div class="con_ul">
+            <div class="con_ul_top clearflx">
+                <div class="con_ul_l f_l">
+                    {:__('Order List')}
+                </div>
+                <div class="con_ul_r f_r" @click="go('/order/index')">
+                    <span>{:__('See more')}</span><img src="__CDN__/assets/monochrome/img/230404pc_icon7.png" alt="">
+                </div>
+            </div>
+            <div class="con_ul2">
+                <ul>
+                    <li :class="vo.level <= info.level ? 'on' : ''" v-for="(vo, key) in cate">
+                        <a href="/rot_order/index.html">
+                            <div class="con_a_top">
+                                <span><img :src="vo.cate_pic" alt=""></span>
+                                <div class="con_a_img">
+                                    <img src="__CDN__/assets/monochrome/img/230404pc_icon5.png" alt="">
+                                </div>
+                            </div>
+                            <div class="con_a_tit">
+                                <div class="con_a_h1">
+                                    <h1 v-html="vo.cate_info"></h1><span>Lv{{vo.level}}</span>
+                                </div>
+                                <!--                                <p>Advertsing Profit</p>-->
+                                <em>{{vo.jindu}}%</em>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="con_div">
+            <div class="con_ul_top clearflx">
+                <div class="con_ul_l f_l">
+                    {:__('Home_Info')}
+                </div>
+            </div>
+            <div class="con_ul3">
+                <ul>
+                    <li v-for="vo in list">
+                        <a class="clearflx">
+                            <span class="f_l"><img src="__CDN__/assets/monochrome/img/230404pc_img1.png" alt=""></span>
+                            <div class="con_ul3_tit">
+                                <h1>{{vo.username}}</h1>
+                                <p>{:__('Home_Current')}:{{vo.level}}</p>
+                            </div>
+                            <i>+{{vo.goods_price}}</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const app = Vue.createApp({
+        setup() {
+            const info = Vue.ref([]);
+            const cate = Vue.ref([]);
+            const list = Vue.ref([]);
+            const setting = Vue.ref(false)
+            const isLoading = Vue.ref(true)
+            const orderCount = Vue.ref(0)
+            var loading = layer.load(2, {
+                shade: [0.1, '#000'] //0.1透明度的白色背景
+            });
+
+            const go = (url) => {
+                window.location.href = url;
+            }
+
+            const getIndexData = () => {
+                axios.post('/index/index').then(function (result) {
+                    layer.close(loading);
+                    isLoading.value = false;
+                    // 加载状态结束
+                    var res = result.data
+                    if (res.code == 401) {
+                        $(document).dialog({
+                            infoText: res.msg,
+                            autoClose: 2000
+                        });
+                        setTimeout(function () {
+                            window.location.href = '/user/login'
+                        }, 2000)
+                        return false
+                    }
+                    if (res.code) {
+                        info.value = res.data.info
+                        cate.value = res.data.cate
+                        list.value = res.data.list
+                        orderCount.value = res.data.orderCount
+                    }
+                })
+            }
+
+            const showSetting = () => {
+                setting.value = !setting.value
+            }
+
+            const loginOut = () => {
+                layer.confirm("{:__('Home_Logout_Title')}", {
+                    title: "{:__('Home_Logout_Title')}",
+                    btn: ["{:__('Home_Confirm')}", "{:__('Home_Cancel')}"] //按钮
+                }, function () {
+                    window.location.href = "{:url('user/logout')}";
+                }, function () {
+                });
+            }
+
+            getIndexData()
+
+            return {
+                info,
+                cate,
+                list,
+                setting,
+                isLoading,
+                orderCount,
+                go,
+                getIndexData,
+                showSetting,
+                loginOut,
+            };
+        },
+    });
+    app.mount("#app");
+</script>
+{include file="common/footer" /}

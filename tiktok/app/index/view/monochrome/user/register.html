@@ -1,0 +1,118 @@
+{include file="common/header" /}
+<div class="content">
+    <div class="row2">
+        <div class="zc_top">
+            <div class="zc_logo">
+                <img src="__CDN__/assets/{$template}/img/230404pc_logo.png">
+            </div>
+            <p>{:__('Welcome Rebecca!')}</p>
+            <p>{:__('Sign in to continue')}</p>
+        </div>
+        <div class="zc_top_in">
+            <ul>
+                <li><input type="text" name="username" placeholder="Username"/></li>
+                <li><input type="text" name="email" placeholder='{:__("Register_Email")}'/></li>
+<!--                <li><span>+{$default_country_code}</span>&nbsp;<input type="text" name="tel" value=""/></li>-->
+                <li><input type="password" name="deposit_pwd" placeholder='{:__("Register_Transaction_password")}'/></li>
+                <li><input type="password" name="pwd" placeholder='{:__("Register_Login_password")}'/></li>
+                <li><input type="text" name="invite_code" value="{$invite_code}" {$invite_code ? 'readonly' : ''} placeholder='{:__("Register_Invite_code")}'/>
+                </li>
+                <li>
+                    <button type="button" class="submit">{:__("Register_Register")}</button>
+                </li>
+            </ul>
+        </div>
+        <div class="zc_p">
+            <p><a href="/user/forget">{:__('Login_Forget_password')}</a></p>
+            <p><a href="/user/login">{:__("Register_Login")}</a></p>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        /*检查表单*/
+        function check() {
+            // if (!check_phone()) {
+            //     return false;
+            // }
+
+            if ($("input[name=pwd]").val() == '') {
+                layer.msg('{:__("please enter login password")}')
+                return false;
+            }
+
+            if ($("input[name=deposit_pwd]").val() == '' || $("input[name=deposit_pwd_re]").val() == '') {
+                layer.msg('{:__("please enter wallet password")}');
+                return false;
+            }
+
+            return true;
+        }
+
+        /*手机号码验证*/
+        function check_phone() {
+            if ($("input[name=user_name]").val() == '') {
+                layer.msg('{:__("Please enter username")}');
+                return false;
+            }
+
+            var myreg = /^([0-9|A-Z|a-z]|[\u4E00-\u9FA5\uF900-\uFA2D]){2,12}$/;
+            if (!myreg.test($("input[name=user_name]").val())) {
+                layer.msg('{:__("User name enter error, 2-12 letters or numbers required")}');
+                return false;
+            }
+
+            if ($("input[name=tel]").val() == '') {
+                layer.msg('{:__("Please enter your mobile phone number")}');
+                return false;
+            }
+
+            var tel = $("input[name=tel]").val();
+            if (tel.length < 6) {
+                layer.msg('{:__("Mobile phone number input error")}');
+                return false;
+            }
+            return true;
+        }
+
+        /*提交*/
+        $(".submit").on('click', function () {
+
+
+            var data = {
+                username: $("input[name='username']").val(),
+                country_code: '{$default_country_code}',
+                tel: $("input[name='tel']").val(),
+                deposit_pwd: $("input[name='deposit_pwd']").val(),
+                pwd: $("input[name='pwd']").val(),
+                email: $("input[name='email']").val(),
+                invite_code: $("input[name='invite_code']").val(),
+            }
+            if (check()) {
+                var loading = layer.load(2, {
+                    shade: [0.1, '#000'] //0.1透明度的白色背景
+                });
+                $.ajax({
+                    url: "{:url('user/register')}",
+                    data: data,
+                    type: 'POST',
+                    success: function (data) {
+                        layer.close(loading);
+                        if (data.code === 1) {
+                            layer.msg('{:__("signup success")}');
+                            setTimeout(function () {
+                                location.href = "{:url('index/index')}"
+                            }, 1500);
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                    }
+                });
+            }
+            return false;
+        })
+
+    })
+</script>
+{include file="common/footer" /}

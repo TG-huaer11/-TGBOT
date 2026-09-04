@@ -1,0 +1,124 @@
+{include file="common/header" /}
+<div id="app">
+    <div class="content" v-if="!isLoading">
+        <div class="con_top" @click="backPage">
+            <span><img src="__CDN__/assets/monochrome/img/230404pc_icon12.png"></span><em>{:__("Bank_Title")}</em>
+        </div>
+        <div class="row">
+            <div class="yhk_ul">
+                <ul>
+                    <li>
+                        <div class="yhk_div">
+                            <h1>{:__("Bank_Bank")}</h1>
+                            <p><span>{{info.card}}</span></p>
+                            <div class="yhk_p clearflx">
+                                <div class="yhk_l f_l">
+                                    <em>{:__("Bank_Name")}</em>
+                                    <b>{{info.username}}</b>
+                                </div>
+                                <div class="yhk_r f_r">
+                                    <em>{:__("Bank_IFSC")}</em>
+                                    <b>{{info.ifsc}}</b>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="con_anniu">
+            <button class="con_button" type="button" @click="delBank">{:__('Del')}</button>
+        </div>
+    </div>
+</div>
+<script>
+    const app = Vue.createApp({
+        setup() {
+
+            const info = Vue.ref([]);
+            const del = Vue.ref(0);
+            const isRequest = Vue.ref(false);
+            const isLoading = Vue.ref(true);
+            var loading = layer.load(2, {
+                shade: [0.1, '#000'] //0.1透明度的白色背景
+            });
+
+            const backPage = () => {
+                window.history.go(-1)
+            }
+
+            const getBankList = () => {
+                axios.post('/user/bind_bank').then(function (result) {
+                    layer.close(loading)
+                    isLoading.value = false
+                    // 加载状态结束
+                    var res = result.data
+                    if (res.code == 401) {
+                        $(document).dialog({
+                            infoText: res.msg,
+                            autoClose: 2000
+                        });
+                        setTimeout(function () {
+                            window.location.href = '/user/login'
+                        }, 2000)
+                        return false
+                    }
+                    if (res.code) {
+                        del.value = res.data.del
+                        info.value = res.data.info
+                    }
+                })
+            }
+
+            const delBank = () => {
+                loading = layer.load(2, {
+                    shade: [0.1, '#000'] //0.1透明度的白色背景
+                });
+
+                if (isRequest.value) {
+                    return false
+                }
+
+                isRequest.value = true
+                axios.post('/user/bind_bank_del').then(function (result) {
+                    layer.close(loading)
+                    isRequest.value = false
+                    // 加载状态结束
+                    var res = result.data
+                    if (res.code == 401) {
+                        $(document).dialog({
+                            infoText: res.msg,
+                            autoClose: 2000
+                        });
+                        setTimeout(function () {
+                            window.location.href = '/user/login'
+                        }, 2000)
+                        return false
+                    }
+                    if (res.code == 1) {
+                        layer.msg("{:__('Bank_Success')}")
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 2000);
+                    } else {
+                        layer.msg("{:__('Bank_Error')}")
+                    }
+                })
+            }
+
+            getBankList()
+
+            return {
+                info,
+                del,
+                isRequest,
+                isLoading,
+                backPage,
+                getBankList,
+                delBank,
+            };
+        },
+    });
+    app.mount("#app");
+</script>
+{include file="common/footer" /}

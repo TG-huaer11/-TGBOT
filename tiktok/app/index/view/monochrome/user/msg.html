@@ -1,0 +1,70 @@
+{include file="common/header" /}
+<div id="app">
+    <div class="content" v-if="!isLoading">
+        <div class="con_top" @click="backPage">
+            <span><img src="__CDN__/assets/monochrome/img/230404pc_icon12.png" ></span><em>{:__("Message_Title")}</em>
+        </div>
+        <div class="row2 no-padding">
+            <div class="xx_ul no-margin">
+                <ul>
+                    <li v-for="v in info" v-if="info.length > 0">
+                        <span>{{v.create_at}}</span>
+                        <div class="xx_div">
+                            <h1><b>{{v.title}}</b></h1>
+                            <h1 v-html="v.content"></h1>
+<!--                            <p><a href="#">See text details</a></p>-->
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const app = Vue.createApp({
+        setup() {
+            const info = Vue.ref([]);
+            const isLoading = Vue.ref(true);
+            var loading = layer.load(2, {
+                shade: [0.1, '#000'] //0.1透明度的白色背景
+            });
+
+            const backPage = () => {
+                window.history.go(-1)
+            }
+
+            const getInfo = () => {
+                axios.post('/user/msg').then(function (result) {
+                    isLoading.value = false
+                    layer.close(loading)
+                    // 加载状态结束
+                    var res = result.data
+                    if (res.code == 401) {
+                        $(document).dialog({
+                            infoText: res.msg,
+                            autoClose: 2000
+                        });
+                        setTimeout(function () {
+                            window.location.href = '/user/login'
+                        }, 2000)
+                        return false
+                    }
+                    if (res.code) {
+                        info.value = res.data.info
+                    }
+                })
+            }
+
+            getInfo()
+
+            return {
+                info,
+                isLoading,
+                backPage,
+                getInfo,
+            };
+        },
+    });
+    app.mount("#app");
+</script>
+{include file="common/footer" /}

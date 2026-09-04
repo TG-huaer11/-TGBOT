@@ -1,0 +1,74 @@
+{include file="common/header" /}
+<div class="content">
+    <div class="row2">
+        <div class="zc_top li">
+            <div class="zc_logo">
+                <img src="__CDN__/assets/monochrome/img/230404pc_logo.png">
+            </div>
+            <p>{:__('Welcome Rebecca!')}</p>
+            <p>{:__('Sign in to continue')}</p>
+        </div>
+        <div class="zc_top_in">
+            <ul>
+                <li><input type="text" id="username" placeholder="Username"/></li>
+                <li><input type="password" id="password" placeholder="Password"/></li>
+                <li>
+                    <button type="button" id="login">Sign In</button>
+                </li>
+            </ul>
+        </div>
+        <div class="zc_p">
+            <p><a href="/user/forget">{:__('Login_Forget_password')}</a></p>
+            <p><a href="/user/register">{:__('Login_Sign_up')}</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        /*检查表单*/
+        function check() {
+
+            if ($("input[name=username]").val() == '' || $("input[name=pwd]").val() == '') {
+                $(document).dialog({infoText: '{:__("Please input username/password")}'});
+                return false;
+            }
+
+            return true;
+        }
+
+        $(document).on('click', '#login', function () {
+            if (check()) {
+                var loading = layer.load(2);
+                var username = $("#username").val();
+                var pwd = $("#password").val();
+                $.ajax({
+                    url: "{:url('user/login')}",
+                    data: { username: username, pwd: pwd},
+                    type: 'POST',
+                    success: function (data) {
+                        if (data.code == 1) {
+                            layer.close(loading);
+                            layer.msg(data.msg);
+                            setTimeout(function () {
+                                loading = layer.load(2)
+                                location.href = "{:url('index/index')}"
+                            }, 2000);
+                        } else {
+                            layer.close(loading);
+                            if (data.msg) {
+                                layer.msg(data.msg);
+                            } else {
+                                layer.msg('{:__("The network is unstable. Please try again where the signal is good!")}');
+                            }
+                        }
+                    },
+                    error: function (data) {
+                        layer.close(loading);
+                    }
+                });
+            }
+        })
+    })
+</script>
+{include file="common/footer" /}

@@ -1,0 +1,108 @@
+{include file="common/header" /}
+<div id="app">
+    <div class="content" v-if="!isLoading">
+        <div class="con_top" @click="backPage">
+            <span><img src="__CDN__/assets/monochrome/img/230404pc_icon12.png"></span><em>{:__("Deposit_Admin_Title")}</em>
+        </div>
+        <div class="row no-padding">
+            <div class="dd_tit no-margin">
+                <ul>
+                    <li v-for="item in list">
+                        <a>
+                            <div class="dd_tit_p clearflx">
+                                <span class="f_l color7" v-if="item.status == 1">{:__("Deposit_Admin_Processing")}</span>
+                                <span class="f_l color4" v-if="item.status == 2">{:__("Deposit_Admin_Success")}</span>
+                                <span class="f_l color5" v-if="item.status == 3">{:__("Deposit_Admin_Failed")}</span>
+                                <span class="f_l color7" v-if="item.status == 4">{:__("Deposit_Admin_Processing Transaction")}</span>
+                                <i class="f_r">{{item.id}}</i>
+                            </div>
+                            <div class="dd_tit_p2 clearflx">
+                                <span class="f_l"><b>{{item.create_time}}</b></span>
+                                <i class="f_r">{{item.num}}</i>
+                            </div>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const app = Vue.createApp({
+        setup() {
+            const page = Vue.ref(1);
+            const list = Vue.ref([])
+            const isMore = Vue.ref(true)
+            const isLoading = Vue.ref(false);
+            var loading = layer.load(2, {
+                shade: [0.1, '#000'] //0.1透明度的白色背景
+            });
+
+            const backPage = () => {
+                window.history.go(-1)
+            }
+
+            const getList = () => {
+                axios.post('/user/deposit_admin', {
+                    page: page.value,
+                }).then(function (res) {
+                    var result = res.data
+                    layer.close(loading);
+                    isLoading.value = false;
+                    if (result.code == 401) {
+                        $(document).dialog({
+                            infoText: result.msg,
+                            autoClose: 2000
+                        });
+                        setTimeout(function () {
+                            window.location.href = '/user/login'
+                        }, 2000)
+                        return false
+                    }
+                    if (result.code == 1) {
+                        var pageList = res.data.data
+                        if (pageList.length) {
+                            page.value++;
+                            list.value = list.value.concat(pageList)
+                        } else {
+                            isMore.value = false
+                        }
+                    }
+                })
+            }
+
+            const lazyLoading = () => {
+                // // 滚动到底部，再加载的处理事件
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const clientHeight = document.documentElement.clientHeight;
+                const scrollHeight = document.documentElement.scrollHeight;
+                if (scrollTop + clientHeight >= scrollHeight && isMore.value) {
+                    loading = layer.load(2, {
+                        shade: [0.1, '#000'] //0.1透明度的白色背景
+                    });
+                    //记住滚动到底的时候，当前页需要加1
+                    getList();
+                }
+            };
+
+            getList()
+
+            return {
+                page,
+                list,
+                isMore,
+                isLoading,
+                lazyLoading,
+                backPage,
+                getList,
+            };
+        },
+        mounted() {
+            window.addEventListener('scroll', this.lazyLoading)
+        },
+    });
+    app.mount("#app");
+</script>
+{include file="common/footer" /}

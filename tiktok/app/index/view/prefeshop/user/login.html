@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" class="deeppurple-theme">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no">
+  <meta name="description" content="">
+  <title>
+    {:__('Login_Title')}
+  </title>
+  <link rel="stylesheet" href="/assets/prefeshop/css/login.css">
+  <meta name="google-site-verification" content="rUPJ2A9Zv6J2t9weFM4w8JKB59jAcDG-8ZvXdPVJM2M" />
+  <link rel="stylesheet" href="/assets/prefeshop/css/public.css">
+  <style type="text/css" title="fading circle style">
+    @font-face {
+      font-family: 'Material Icons';
+      font-style: normal;
+      font-weight: 400;
+      src: url(/assets/prefeshop/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+    }
+
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #service {
+      width: 161px;
+      height: 450px;
+      position: fixed;
+      bottom: 10px;
+      right: 0px;
+      z-index: 0;
+    }
+
+    #service li {
+      width: 161px;
+      height: 60px;
+    }
+
+    #service li img {
+      float: right;
+    }
+
+    ol,
+    ul {
+      list-style: none
+    }
+
+    ul,
+    li {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      outline: 0;
+      font-size: 100%;
+      vertical-align: baseline;
+      background: transparent
+    }
+  </style>
+</head>
+
+<body class="main">
+  <div class="wrapper passport"><!-- header -->
+    <div class="header">
+      <div class="row no-gutters">
+        <div class="col-2"></div>
+        <div class="col-8 text-center">
+          <span class="btn" style="width: 100%;display: none">{:__('Login_Title')}</span>
+        </div>
+        <div class="col-2 text-right"><a href="/index/user/lang" class="btn btn-link text-dark">
+            <i class="material-icons" style="display: inline-block">language</i></a></div>
+      </div>
+    </div><!-- header ends -->
+    <div class="cont"><img src="/assets/prefeshop/picture/login.png" alt="" class="login"
+        style="margin-bottom: 2.5rem;">
+      <form>
+        <h3 style="display: flex;justify-content: space-between;">{:__('Login_Title')} </h3>
+        <div class="password-container">
+          <p>{:__('Login_Account')}</p>
+          <div>
+            <input type="email" id="inputEmail" name="tel" placeholder='{:__("Login_Username")}' value="" required="" autofocus="">
+          </div>
+          <p>{:__("Login_Password")}</p>
+          <div style="position: relative;"><input type="password" id="inputPassword" name="pwd" placeholder='{:__("Login_Please_enter_password")}'
+              value="" required="">
+            <span class="password-toggle" onClick="togglePasswordVisibility()">
+              <img src="/assets/prefeshop/picture/eye.png" alt="Toggle Password"></span>
+          </div>
+        </div>
+      </form>
+      <h6
+        onclick="window.location.href=`/user/forget`">
+        {:__("Login_Forget_password")}
+      </h6>
+      <button class="login_button login">{:__("Login_sub")}</button>
+      <h6><span> {:__("Login_Sign_No_Account")}</span><a href="/index/user/register">{:__("Login_Sign_upp")}</a></h6>
+    </div>
+  </div>
+  <script>
+    function togglePasswordVisibility() {
+      var passwordInput = document.getElementById("inputPassword");
+      var passwordToggle = document.getElementsByClassName("password-toggle")[0];
+
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        passwordToggle.innerHTML = '<img src="/assets/prefeshop/picture/eyes.png" alt="Toggle Password">';
+      } else {
+        passwordInput.type = "password";
+        passwordToggle.innerHTML = '<img src="/assets/prefeshop/picture/eye.png" alt="Toggle Password">';
+      }
+    }
+
+
+    const openBtn = document.getElementById('select');
+    const dialog = document.getElementById('boxShadow');
+    // 点击按钮打开弹出框和遮罩
+    openBtn.addEventListener('click', () => {
+      if (dialog.style.display == 'block') {
+        dialog.style.display = 'none'
+      } else {
+        dialog.style.display = 'block'
+      }
+
+    });
+
+    // 点击关闭按钮关闭弹出框和遮罩
+    dialog.addEventListener('click', () => {
+      dialog.style.display = 'none';
+
+    });
+
+  </script><!-- jquery, popper and bootstrap js -->
+  <script src="/assets/prefeshop/js/jquery-3.3.1.min.js"></script>
+  <script src="/assets/prefeshop/js/popper.min.js"></script>
+  <script src="/assets/prefeshop/js/bootstrap.min.js"></script><!-- swiper js -->
+  <script src="/assets/prefeshop/js/swiper-bundle.min.js"></script><!-- cookie js -->
+  <script src="/assets/prefeshop/js/jquery.cookie.js"></script>
+  <script charset="utf-8" src="/assets/prefeshop/js/dialog.min.js"></script>
+  <link rel="stylesheet" href="/assets/prefeshop/css/layer.css">
+  <script src="/assets/prefeshop/js/layer.js"></script>
+  <script charset="utf-8" src="/assets/prefeshop/js/jquery.progressbartimer.js"></script>
+  <script charset="utf-8" src="/assets/prefeshop/js/common.js"></script><!-- template custom js -->
+  <script src="/assets/prefeshop/js/main.js"></script>
+  <script type="application/javascript">sessionStorage.setItem('login_flag', '1');
+    $(function () {
+      /*检查表单*/
+      function check() {
+        if ($("input[name=tel]").val() == '' || $("input[name=pwd]").val() == '') {
+          $(document).dialog({ infoText: '{:__("please input username/password")}' });
+          return false;
+        }
+        return true;
+      }
+
+      /*监听账号input*/
+      $("input[name=tel]").bind("input propertychange",
+        function () {
+          if ($(this).val() !== '') {
+            $('.icon-delete').show();
+          } else {
+            $('.icon-delete').hide();
+          }
+        });
+
+      /*点击删除icon*/
+      $(".icon-delete").on('click',
+        function () {
+          $("input[name=tel]").val('');
+          $('.icon-delete').hide();
+        })
+
+      /*显示or隐藏密码*/
+      $(".icon-eye").on('click',
+        function () {
+          var type = $("input[name=pwd]").attr("type");
+          if (type == 'pwd') {
+            $("input[name=pwd]").attr('type', 'text');
+            return;
+          }
+          $("input[name=pwd]").attr('type', 'pwd');
+        });
+
+      /*点击登录*/
+      $(".login").on('click',
+        function () {
+          if (check()) {
+                var loading = null;
+                var username = $("input[name=tel]").val();
+                var pwd = $("input[name=pwd]").val();
+                var remember = '1';
+                $.ajax({
+                    url: "{:url('user/login')}",
+                    data: { username: username, pwd: pwd, remember: remember },
+                    type: 'POST',
+                    beforeSend: function () {
+                        loading = $(document).dialog({
+                            type: 'notice',
+                            infoIcon: '__CDN__/assets/{$template}/images/loading.gif',
+                            infoText: '{:__("loading")}',
+                            autoClose: 0
+                        });
+                    },
+                    success: function (data) {
+                        if (data.code == 1) {
+                            loading.close();
+                            $(document).dialog({ infoText: data.msg });
+                            setTimeout(function () {
+                                $(document).dialog({
+                                    type: 'notice',
+                                    infoIcon: '__CDN__/assets/{$template}/images/loading.gif',
+                                    infoText: '{:__("loading")}',
+                                    autoClose: 0
+                                });
+                                location.href = "{:url('index/index')}"
+                            }, 2000);
+                        } else {
+                            loading.close();
+                            if (data.msg) {
+                                $(document).dialog({ infoText: data.msg });
+                            } else {
+                                $(document).dialog({ infoText: '{:__("The network is unstable. Please try again where the signal is good!")}', autoClose: 2000 });
+                            }
+                        }
+                    },
+                    error: function (data) {
+                        loading.close();
+                    }
+                });
+            }
+        });
+
+    })</script><!--tj-->
+</body>
+
+</html>

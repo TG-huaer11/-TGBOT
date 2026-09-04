@@ -1,0 +1,35 @@
+{include file="common/header" /}
+<div class="content">
+    <div class="row2">
+        <div class="zc_top">
+            <div class="zc_logo">
+                <img src="__CDN__/assets/{$template}/img/230404pc_logo.png">
+            </div>
+            <p>{:__('Forget_Forget_password')}</p>
+        </div>
+        <div class="zc_top_in">
+            <ul>
+                <li><input type="text" name="username" placeholder="{:__('Forget_Phone_number')}"/></li>
+                <li><input type="password" name="deposit_pwd" placeholder='{:__("Forget_Please_enter_password")}'/></li>
+                <li><input type="password" name="pwd" placeholder='{:__("Forget_Enter_password_again")}'/></li>
+                <li>
+                    <button type="button" class="submit">{:__("Forget_Submit")}</button>
+                </li>
+            </ul>
+        </div>
+        <div class="zc_p">
+            <p><a href="/user/login">{:__("Login_Sign_up")}</a></p>
+            <p><a href="/user/register">{:__('Register_Login')}</a></p>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        /*提交*/
+        $(".submit").on('click', function () {
+            location.href = "{:url('user/login')}"
+        })
+
+    })
+</script>
+{include file="common/footer" /}

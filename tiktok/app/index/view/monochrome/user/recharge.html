@@ -1,0 +1,381 @@
+{include file="common/header" /}
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<style>
+    :root{
+        --van-uploader-upload-background-color: white;
+        --van-uploader-size: 220px;
+        --van-uploader-icon-size: 40px
+    }
+</style>
+<div id="app">
+    <div class="content" v-if="!isLoading">
+        <div class="con_top" @click="backPage">
+            <span><img src="__CDN__/assets/monochrome/img/230404pc_icon12.png"></span><em>{:__('Recharge_Title')}</em>
+        </div>
+        <div class="row" v-if="step == 1">
+            <div class="con_bd2">
+                <h2><em>{:__('Recharge_Amount')}</em></h2>
+                <div class="con_in">
+                    <input type="text" id="" v-model="amount"
+                           placeholder="{:__('Recharge_Enter_the_amount_of_recharge')}"/>
+                </div>
+                <h2 class="clearflx mar_t14"><em>{:__('Recharge_Shortcut')}</em></h2>
+                <div class="con_in_ul clearflx">
+                    <ul>
+                        <li :class="{on:index==isSelect}" v-for="item,index in amountList" @click="chooseAmount(index)">
+                            <a>{{item}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button class="con_button mar_t20" type="button" @click="next">{:__('Recharge_Online_Payment')}</button>
+            <div class="con_p">
+                <p>{:__("Recharge_P1")}</p>
+                <p>{:__("Recharge_P2")}</p>
+                <p>{:__("Recharge_P3")}</p>
+                <p>{:__("Recharge_P4")}</p>
+            </div>
+        </div>
+        <div class="row" v-if="step == 2 && pay_type == 3">
+            <div class="con_bd3">
+                <div class="cz_ul">
+                    <ul>
+                        <li class="clearflx">
+                            <span class="f_l">{:__('Recharge_Amount')}</span>
+                            <i class="f_r"><b>{{ amount }}</b></i>
+                        </li>
+                        <li class="clearflx">
+                            <span class="f_l">USDT(TRC-20)</span>
+                            <i class=""><b class="li">{{ address.address }}</b> <a href="#" @click="copy(address.address)">Copy</a></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cz_ewm">
+                <span><img :src="recharge_image" :alt="address.name"></span>
+            </div>
+            <div class="cz_ewm">
+                <van-uploader :after-read="afterRead" v-model="fileList" :max-count="1"/>
+            </div>
+            <div class="con_anniu clearfix">
+                <button class="con_button f_l" style="width: 49%" type="button" @click="back">{:__('Recharge_Back')}</button>
+                <button class="con_button f_r" style="width: 49%" type="button" @click="submit">{:__('Recharge_Submit')}</button>
+            </div>
+        </div>
+        <div class="row" v-if="step == 2 && pay_type == 1">
+            <div class="con_bd3">
+                <div class="cz_ul">
+                    <ul>
+                        <li class="clearflx"><span class="f_l">{:__('Recharge_Amount')}</span><i class="f_r"><b>{{amount}}</b></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="con_bd3">
+                <div class="cz_ul recharge_ul ">
+                    <ul>
+                        <li class="clearflx" v-for="item,index in payList" @click="pay(index)"><span class="f_l">{{item.name}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="con_anniu">
+                <button class="con_button" type="button" @click="back">{:__('Recharge_Back')}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<span id="qrcode" style="display: none"></span>
+<script>
+    const app = Vue.createApp({
+        setup() {
+            const isLoading = Vue.ref(true)
+            const payList = Vue.ref([])
+            const payBankList = Vue.ref([])
+            const rechargeConfig = Vue.ref([])
+            const step = Vue.ref(1)
+            const amount = Vue.ref('')
+            const recharge_image = Vue.ref('')
+            const fileList = Vue.ref([])
+            const isSelect = Vue.ref(-1)
+            const amountList = Vue.ref([])
+            const isRequest = Vue.ref(false)
+            const address = Vue.ref([])
+            const pay_image = Vue.ref('')
+            const pay_type = Vue.ref(3)//1三方通道 3usdt
+            var loading = layer.load(2, {
+                shade: [0.1, '#000'] //0.1透明度的白色背景
+            });
+
+            const changeAmount = (e) => {
+                // amount.value = e.data
+            }
+
+            const copy = (url) => {
+                try {
+                    const clipboardObj = window.navigator.clipboard;
+                    clipboardObj.writeText(url)
+                        .then(() => {
+                            layer.msg('{:__("Copy success")}')
+                        })
+                        .catch(() => {
+                            layer.msg('{:__("Copy error")}')
+                        })
+                } catch (e) {
+                    console.log(e)
+                    layer.msg('{:__("Copy error")}')
+                }
+            }
+
+            const getAddress = () => {
+                axios.post('/user/getAddress').then(function (result) {
+                    // 加载状态结束
+                    var res = result.data
+                    if (res.code == 401) {
+                        $(document).dialog({
+                            infoText: res.msg,
+                            autoClose: 2000
+                        });
+                        setTimeout(function () {
+                            window.location.href = '/user/login'
+                        }, 2000)
+                        return false
+                    }
+                    if (res.code) {
+                        address.value = res.data
+                        var qrcode = new QRCode("qrcode", {
+                            text: res.data.address,
+                            width: 128,
+                            height: 128,
+                        });
+
+                        recharge_image.value = qrcode._oDrawing._elCanvas.toDataURL("image/png")
+                    }
+                })
+            }
+
+            const getRechargeConfig = () => {
+                axios.post('/user/recharge_config').then(function (result) {
+                    // 加载状态结束
+                    var res = result.data
+                    if (res.code == 401) {
+                        $(document).dialog({
+                            infoText: res.msg,
+                            autoClose: 2000
+                        });
+                        setTimeout(function () {
+                            window.location.href = '/user/login'
+                        }, 2000)
+                        return false
+                    }
+                    if (res.code) {
+                        rechargeConfig.value = res.data;
+                        amountList.value = res.data;
+                    }
+                })
+            }
+
+            const backPage = () => {
+                window.history.go(-1)
+            }
+
+            const chooseAmount = (index) => {
+                isSelect.value = index
+                amount.value = amountList.value[index]
+            }
+
+            const next = () => {
+                if (amount.value <= 0) {
+                    layer.msg("{:__('Enter recharge amount1')}")
+                    return false;
+                }
+                step.value = 2
+            }
+
+            const back = () => {
+                step.value = 1
+            }
+
+            const submit = () => {
+                console.log(pay_image.value)
+                if (!pay_image.value) {
+                    layer.msg('{:__("Recharge_Upload")}')
+                    return false
+                }
+                loading = layer.load(2, {
+                    shade: [0.1, '#000'] //0.1透明度的白色背景
+                });
+                if (isRequest.value) {
+                    return false
+                }
+
+                isRequest.value = true
+                axios.post('/user/recharge_do_before', {price: amount.value, pay_type: pay_type.value, pay_image: pay_image.value}).then(function (res) {
+                    var result = res.data
+                    if (result.code == 401) {
+                        $(document).dialog({
+                            infoText: res.msg,
+                            autoClose: 2000
+                        });
+                        setTimeout(function () {
+                            window.location.href = '/user/login'
+                        }, 2000)
+                        return false
+                    }
+                    isRequest.value = false
+                    layer.close(loading);
+                    if (result.code == 0) {
+                        layer.msg(result.msg)
+                    }
+                    if (result.code == 1) {
+                        if (pay_type.value == 1) {
+                            if (!result.data.url || result.data.url == "") {
+                                layer.msg(result.msg)
+                            } else {
+                                layer.open({
+                                    title: "Tips",
+                                    id: 'payTips',
+                                    content: '{:__("recharge_tip")}',
+                                    btn: ['{:__("CopyPayUrl")}', '{:__("Recharge_GoToPay")}'],
+                                    yes: function (index, layero) {
+                                        //按钮【按钮一】的回调
+                                        copy(result.data.url)
+                                    },
+                                    btn2: function (index, layero) {
+                                        window.location.href = result.data.url;
+                                    },
+                                })
+                            }
+                        } else {
+                            window.location.href = '/index/index.html';
+                        }
+
+                    }
+                })
+            }
+
+            const pay = (index) => {
+                var type = payList.value[index].name2
+
+                loading = layer.load(2, {
+                    shade: [0.1, '#000'] //0.1透明度的白色背景
+                });
+                if (isRequest.value) {
+                    return false
+                }
+                isRequest.value = true
+                axios.post('/user/recharge_do_before', {price: amount.value, type: type}).then(function (res) {
+                    var result = res.data
+                    if (result.code == 401) {
+                        $(document).dialog({
+                            infoText: res.msg,
+                            autoClose: 2000
+                        });
+                        setTimeout(function () {
+                            window.location.href = '/user/login'
+                        }, 2000)
+                        return false
+                    }
+                    isRequest.value = false
+                    layer.close(loading);
+                    if (result.code == 0) {
+                        layer.msg(result.msg)
+                    }
+                    if (result.code == 1) {
+                        if (!result.data.url || result.data.url == "") {
+                            layer.msg(result.msg)
+                        } else {
+                            layer.open({
+                                title: "Tips",
+                                id: 'payTips',
+                                content: '{:__("recharge_tip")}',
+                                btn: ['{:__("CopyPayUrl")}', '{:__("Recharge_GoToPay")}'],
+                                yes: function (index, layero) {
+                                    //按钮【按钮一】的回调
+                                    copy(result.data.url)
+                                },
+                                btn2: function (index, layero) {
+                                    window.location.href = result.data.url;
+                                },
+                            })
+                        }
+                    }
+                })
+            }
+
+            const getRechargeData = () => {
+                axios.post('/user/recharge').then(function (result) {
+                    layer.close(loading);
+                    isLoading.value = false;
+                    // 加载状态结束
+                    var res = result.data
+                    if (res.code) {
+                        payList.value = res.data.pay;
+                        payBankList.value = res.data.paybank
+                    }
+                })
+            }
+
+            const afterRead = (file) => {
+                // 在这里处理文件读取
+                // file 是用户选择的文件，是一个 File 对象
+                let reader = new FileReader();
+                reader.readAsDataURL(file.file);
+                reader.onload = function(ed) {};
+                console.log(file);
+                let formData = new FormData(); // 上传图片要formData类型
+                formData.append("file", file.file);
+
+                axios.post('/ajax/upload',formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                }).then(function (result) {
+                    // 加载状态结束
+                    if (result.data.code) {
+                        pay_image.value = result.data.data.url
+                        console.log(pay_image.value)
+                        console.log(result.data.data.url)
+                    }
+                })
+            };
+
+            getRechargeData()
+            getRechargeConfig()
+            getAddress()
+
+            return {
+                isRequest,
+                isLoading,
+                payList,
+                payBankList,
+                amountList,
+                amount,
+                isSelect,
+                step,
+                rechargeConfig,
+                copy,
+                backPage,
+                pay,
+                next,
+                back,
+                chooseAmount,
+                getRechargeData,
+                getRechargeConfig,
+                changeAmount,
+                getAddress,
+                pay_type,
+                pay_image,
+                recharge_image,
+                address,
+                fileList,
+                submit,
+                afterRead
+            };
+        },
+    });
+    app.use(vant);
+    app.mount("#app");
+</script>
+
+{include file="common/footer" /}
