@@ -1,0 +1,251 @@
+{include file="public/header" /}
+<style type="text/css" title="fading circle style">
+    .circle-color-8 > div::before {
+        background-color: #ccc;
+    }
+
+    input {
+        background-color: #22222b;
+    }
+
+    .group3 {
+        height: 180px;
+        background: url("__CDN__/assets/common/img/card.png?sss") 100% no-repeat;
+        width: 343px;
+        margin: 20px 0 0 16px;
+        border-radius: 18px;
+    }
+
+    .mod1 {
+        width: 77px;
+        height: 50px;
+        margin: 25px 0 0 25px;
+    }
+
+    .word3 {
+        width: 77px;
+        height: 30px;
+        display: block;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, 1);
+        font-size: 30px;
+        letter-spacing: -1px;
+        font-family: Arial-Black;
+        white-space: nowrap;
+        line-height: 30px;
+        text-align: right;
+        padding-top: 20px;
+    }
+
+    .mod2 {
+        width: 302px;
+        height: 31px;
+        margin: 24px 0 0 10px;
+    }
+
+    .txt2 {
+        width: 264px;
+        height: 28px;
+        display: block;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, 1);
+        font-size: 20px;
+        letter-spacing: 8px;
+        font-family: PingFangSC-Medium;
+        white-space: nowrap;
+        line-height: 28px;
+        text-align: right;
+        margin-top: 3px;
+    }
+
+    .info1 {
+        width: 35px;
+        height: 28px;
+        display: block;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, 1);
+        font-size: 20px;
+        letter-spacing: -0.6666666865348816px;
+        white-space: nowrap;
+        line-height: 28px;
+        text-align: right;
+    }
+
+    .mod3 {
+        width: 284px;
+        height: 14px;
+        margin: 19px 0 0 25px;
+    }
+
+    .info2 {
+        width: 58px;
+        height: 14px;
+        display: block;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, 0.34);
+        font-size: 10px;
+        font-family: PingFangSC-Medium;
+        white-space: nowrap;
+        line-height: 14px;
+        text-align: left;
+    }
+
+    .word4 {
+        width: 30px;
+        height: 14px;
+        display: block;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, 0.34);
+        font-size: 10px;
+        font-family: PingFangSC-Medium;
+        white-space: nowrap;
+        line-height: 14px;
+        text-align: left;
+    }
+
+    .mod4 {
+        width: 290px;
+        height: 14px;
+        margin: -15px 0 19px 25px;
+        padding-left: 200px;
+        text-align: right;
+    }
+
+    .txt3 {
+        width: 109px;
+        height: 14px;
+        display: block;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, 1);
+        font-size: 10px;
+        font-family: PingFangSC-Medium;
+        white-space: nowrap;
+        line-height: 14px;
+        text-align: left;
+        padding-left: 6px;
+    }
+
+    .txt4 {
+        width: 36px;
+        height: 14px;
+        display: block;
+        overflow-wrap: break-word;
+        color: rgba(255, 255, 255, 1);
+        font-size: 10px;
+        font-family: PingFangSC-Medium;
+        white-space: nowrap;
+        line-height: 14px;
+        text-align: left;
+        padding-left: 6px;
+    }
+</style>
+<div id="app">
+    <div data-v-cc2885a2="" class="main">
+        <div data-v-61ea9512="" class="header">
+            <div class="left_btn" onclick="onBack()">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAcCAYAAABoMT8aAAAAAXNSR0IArs4c6QAAAQ1JREFUSEul1WlKxEAUReHzluo8IWjjgIojKrbiAArOOOzLrXilhISLdqeT1/kZcr5KKpVKkDgk3QBfEXEbXXtJ18AKIGC5EyDpCli1Qe9aA5IugZ7F98BSK0DSBbBm8QOwGBEaCUg6B9YtfgQWSlzONQKS+sCGxU/AfBU3ApLOgE2Ln4E5j4cCkk6BLYtfgNm/8UBA0gmwbfErMDMo/gdIOgZ2LH4DpiPie9iCqydR0hGwaxe+A1NNcX0Hkg6BPYs/gMlR8S8g6QDYt/gTmGgTV0CJC1Id3YBSjfUI1bBjTaIh+ddoSH4hGZJfyobkPyZD8p+zIfkNxZD8lmZIflM1JL+tG5L/sRhS/9p+AAdYoAnSreq9AAAAAElFTkSuQmCC" alt="" class="return"/>
+            </div>
+            <div data-v-4c2dcb20="" class="Maintitle">
+                <h3 data-v-4c2dcb20="" style="background: #22222b">
+                    {:__("Bank_Title")}
+                </h3>
+            </div>
+            <div class="right_btn" onclick="onDel()" style="color: #fff; padding-top: 2px" v-if="del == 1">
+                Del
+            </div>
+        </div>
+
+        <!-- Binded -->
+
+        <div class="group3 flex-col">
+            <div class="mod1 flex-row">
+                <span class="word3">{:__("Bank_Bank")}</span>
+            </div>
+            <div class="mod2 flex-row justify-between">
+                <span class="txt2">{{info.card}}</span>
+            </div>
+            <div class="mod3 flex-row justify-between">
+                <span class="info2">{:__("Bank_IFSC")}</span>
+                <span class="txt3">{{info.ifsc}}</span>
+            </div>
+            <div class="mod4 flex-row justify-between">
+                <span class="word4">{:__("Bank_Name")}</span>
+                <span class="txt4">{{info.username}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+    function onBack() {
+        location.href = "/user/personal";
+    }
+</script>
+<div v-if="del == 1">
+    <script type="application/javascript">
+        function onDel() {
+            $.ajax({
+                url: "/user/bind_bank_del",
+                type: "POST",
+                beforeSend: function () {
+                    loading = $(document).dialog({
+                        type: "notice",
+                        infoIcon: "__CDN__/assets/common/img/loading.gif",
+                        infoText: "loading",
+                        autoClose: 0,
+                    });
+                },
+                success: function (data) {
+                    if (data.code == 401) {
+                        $(document).dialog({
+                            infoText: data.msg,
+                            autoClose: 2000
+                        });
+                        setTimeout(function () {
+                            window.location.href = '/user/login'
+                        }, 2000)
+                        return false
+                    }
+                    if (data.code == 1) {
+                        $(document).dialog({infoText: "Success"});
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 2000);
+                    } else {
+                        loading.close();
+                        $(document).dialog({infoText: 'Error'});
+                    }
+                },
+            });
+        }
+    </script>
+</div>
+<script>
+    const app = Vue.createApp({
+        setup() {
+            const del = Vue.ref([]);
+            const info = Vue.ref([]);
+
+            const getBankInfo = () => {
+                axios.post('/user/bind_bank').then(function (result) {
+                    // 加载状态结束
+                    var res = result.data
+                    if (res.code) {
+                        del.value = res.data.del
+                        info.value = res.data.info
+                    }
+                })
+            }
+            getBankInfo()
+            return {
+                del,
+                info,
+                getBankInfo     ,
+            };
+        },
+    });
+    app.use(vant);
+    app.use(vant.Toast);
+    app.mount("#app");
+</script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"
+    />
+    <title>{:__("Deposit_Admin_Title")}</title>
+    <style>
+        body {
+            background: #17171b;
+        }
+
+        .navbar .van-nav-bar__content {
+            background: #22222b;
+        }
+
+        .navbar .van-nav-bar__title {
+            color: #ffffff;
+        }
+
+        .cellcol {
+            padding: 10px 0px 10px;
+        }
+
+        .cellcol .van-cell-group {
+            background: #22222b;
+        }
+
+        .cellgroup {
+            margin: 0px 0px 10px;
+        }
+
+        .cellgroup .van-cell {
+            background: #22222b;
+            color: #ffffff;
+        }
+    </style>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/vant@3/lib/index.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@3/lib/vant.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <van-row>
+        <van-col span="24">
+            <van-nav-bar
+                    class="navbar"
+                    title='{:__("Deposit_Admin_Title")}'
+                    left-arrow
+                    @click-left="onClickLeft"
+            />
+        </van-col>
+
+        <van-col span="24" class="cellcol">
+            <van-list
+                    v-model:loading="loading"
+                    :finished="finished"
+                    finished-text="no more"
+                    @load="onLoad"
+            >
+                <div class="cellgroup" v-for="item in list">
+                    <van-cell-group inset>
+                        <van-cell :title="item.id" :label="item.num">
+                            <template #value>
+                                <font color="orange" v-if="item.status == 1">{:__("Deposit_Admin_Processing")}</font>
+                                <font color="green" v-if="item.status == 2">{:__("Deposit_Admin_Success")}</font>
+                                <font color="red" v-if="item.status == 3">{:__("Deposit_Admin_Failed")}</font>
+                                <font color="orange" v-if="item.status == 4">{:__("Deposit_Admin_Processing")}</font>
+                            </template>
+                        </van-cell>
+                    </van-cell-group>
+                </div>
+            </van-list>
+        </van-col>
+    </van-row>
+</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    const app = Vue.createApp({
+        computed: {
+            vanNavBar: vant.NavBar,
+            vanCol: vant.Col,
+            vanRow: vant.Row,
+            vanCell: vant.Cell,
+            vanCellGroup: vant.CellGroup,
+        },
+        setup() {
+            const onClickLeft = () => history.back();
+            const list = Vue.ref([]);
+            const loading = Vue.ref(false);
+            const finished = Vue.ref(false);
+            const page = Vue.ref(1);
+            const is_more = Vue.ref(true);
+            const onLoad = () => {
+                console.log('sss')
+                if (is_more.value) {
+                    axios.post('/user/deposit_admin', {
+                        page: page.value,
+                    }).then(function (result) {
+                        // 加载状态结束
+                        loading.value = false;
+                        var res = result.data
+                        if (res.code == 401) {
+                            $(document).dialog({
+                                infoText: res.msg,
+                                autoClose: 2000
+                            });
+                            setTimeout(function () {
+                                window.location.href = '/user/login'
+                            }, 2000)
+                            return false
+                        }
+                        if (res.code) {
+                            if (res.data.length > 0) {
+                                for (var i = 0; i < res.data.length; i++) {
+                                    list.value.push(res.data[i])
+                                }
+                                page.value++;
+                            } else {
+                                is_more.value = false
+                                finished.value = true;
+                            }
+                        } else {
+                            is_more.value = false
+                            finished.value = true;
+                        }
+                    })
+                }
+            };
+            return {
+                onClickLeft,
+                list,
+                onLoad,
+                loading,
+                finished,
+                is_more,
+                page,
+            };
+        },
+    });
+    app.use(vant);
+    app.use(vant.Lazyload);
+    app.use(vant.List);
+    app.mount("#app");
+</script>
+</html>

@@ -1,0 +1,376 @@
+{include file="public/header" /}
+<link rel="stylesheet" href="__CDN__/assets/default/css/theme.css">
+<style>
+    body {
+        background-color: #22222B;
+        margin-bottom: 65px;
+        padding-top: 0;
+    }
+
+    input {
+        color: #fffdff;
+        background-color: #22222B;
+    }
+
+    .header {
+        width: 100%;
+        color: #ffffff !important;
+        top: 0;
+        z-index: 99;
+        position: relative;
+        background: #22222B;
+    }
+
+    .header > p {
+        width: 96%;
+        margin: 0 2%;
+        height: 46px;
+        line-height: 46px;
+        text-align: center;
+    }
+
+    .my-meun {
+        overflow: hidden;
+        margin-right: 15px;
+        margin-left: 5px;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+
+    .my-meun > .meun-item {
+        font-size: 15px;
+        padding-right: 45px;
+        position: relative;
+        padding: 0 15px;
+        height: 50px;
+        background-color: #22222B;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .my-meun > .meun-item > .item-line {
+        border-bottom: 1px solid rgba(0, 0, 0, .2)
+    }
+
+    .my-meun > .meun-item > .item-line > span {
+        font-size: 15px;
+        line-height: 50px;
+        /* margin-left: 5px; */
+        color: #8799a3;
+    }
+
+    .my-meun > .meun-item > .item-line > icon {
+        color: #000;
+        position: absolute;
+        right: 15px;
+        top: 17px;
+    }
+
+    .item-line > input {
+        border: none;
+        position: absolute;
+        right: 8px;
+        top: 14px;
+        margin-top: 2px;
+        text-align: right;
+        font-size: 15px;
+        /* width: 56%; */
+    }
+
+    .item-line > input:-moz-placeholder {
+        color: grey;
+        font-size: 14px;
+        text-align: right;
+    }
+
+    .item-line > input::-moz-placeholder {
+        color: grey;
+        font-size: 14px;
+        text-align: right;
+    }
+
+    .item-line > input:-ms-input-placeholder,
+    textarea:-ms-input-placeholder {
+        color: grey;
+        font-size: 14px;
+        text-align: right;
+    }
+
+    .item-line > input::-webkit-input-placeholder,
+    textarea::-webkit-input-placeholder {
+        color: grey;
+        font-size: 14px;
+        text-align: right;
+    }
+
+    .save-btn {
+        margin: 20px 15px;
+        padding: 10px;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 14px;
+        background: #2f3848 !important;
+    }
+
+    .money-bg {
+        margin-right: 15px;
+        margin-left: 15px;
+        border-radius: 10px;
+        margin-top: 10px;
+        background-color: #2C2C37;
+        position: relative;
+    }
+
+    .money-bg > p {
+        padding: 10px;
+    }
+
+    .money-bg > input {
+        font-size: 28px;
+        border: none;
+        width: 70%;
+        margin: 10px 10px 20px 50px;
+        background-color: #2C2C37;
+    }
+
+    .money-bg > span {
+        position: absolute;
+        left: 20px;
+        bottom: 55px;
+        font-size: 22px;
+    }
+
+    .balance {
+        color: #999;
+        font-size: 12px;
+    }
+
+    .rate {
+        border: 1px solid #fbbd08;
+        font-size: 12px;
+        padding: 1px 6px;
+        border-radius: 2500px;
+        color: #fbbd08;
+        margin-left: 5px;
+    }
+
+    .right {
+        float: right;
+    }
+</style>
+<script>
+    (function () {
+        var dw = document.createElement("script");
+        dw.src = "__CDN__/assets/default/js/pack.js?e9154e78c011e7e0eba17228a1621937"
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(dw, s);
+    })()
+</script>
+<script type="application/javascript">
+    window.onpageshow = function (event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+</script>
+<body id="app">
+<div class="header" style="background: #22222B;">
+    <div class="goback" style="color: #464646!important">
+        <a href="javascript:history.go(-1)" style="color: #ffffff!important"><span
+                class="icon iconfont icon-fanhui"></span></a>
+    </div>
+    <p>{:__("Withdraw_Title")}</p>
+</div>
+<form id="login-form">
+    <div class="money-bg">
+        <p><span class="rate">{:__("Withdraw_Handling_fee")}&nbsp;<span class="shouxu"></span>%</span></p>
+        <!-- <span>:</span> -->
+        <input name="num" id="num" type="number" placeholder='0'>
+        <p class="balance">{:__("Withdraw_Balance")}: <span class="user_balance"></span> <a href="javascript:void(0)"
+                                                                          onclick="return tixianAll()"
+                                                                          style="color:#fff;margin-left:20px">{:__("Withdraw_All")}</a>
+        </p>
+    </div>
+    <p class="balance" style="padding: 9px 25px 0px;">{:__("Recharge Total")}: <span class="limit"></span></p>
+    <p class="balance" style="padding: 9px 25px 0px;">{:__("Shop Total")}: <span class="shop"></span></p>
+    <div class="my-meun">
+        <!-- <div class="meun-item">
+            <div class="item-line">
+                <span>手机号</span> <input type="text" value="{{user.tel}}" placeholder="输入手机号" name="mobile"
+                    autocomplete="off">
+            </div>
+        </div> -->
+        <!-- <div class="meun-item">
+            <div class="item-line">
+                <span></span> -->
+        <input style="display: none ;" type="text" value="" class="bank_account" name="bank_account" autocomplete="off"
+               readonly="">
+        <!-- </div>
+    </div> -->
+        <!-- <div class="meun-item">
+            <div class="item-line">
+                <span>所属银行</span> <input type="text" value="{{info.bankname}}" name="back_address"
+                    autocomplete="off" readonly="">
+            </div>
+        </div> -->
+        <!-- <div class="meun-item">
+            <div class="item-line">
+                <span>开户名</span> <input type="text" value="{info.username}" name="back_name"
+                    autocomplete="off" readonly="">
+            </div>
+        </div>-->
+        <div class="meun-item status0" style="display: none">
+            <div class="item-line">
+                <span>{:__("Withdraw_Transaction_Pass")}</span>
+                <input type="password" placeholder='{:__("Withdraw_Enter_password")}' name="paypassword"
+                       autocomplete="off" maxlength="4">
+            </div>
+        </div>
+    </div>
+    <div class="money-bg status1" style="display: none">
+        <p style="font-size: 14px; color:#fff;">
+            Please try again in <spanc class="status_t"></spanc> minutes.
+        </p>
+    </div>
+
+    <input type="hidden" name="type" value="card">
+</form>
+<div class="save-btn status0" style="display: none">{:__("Withdraw_Submit")}</div>
+<script type="application/javascript">
+    function tixianAll() {
+        var price = $('.user_balance').html()
+        $('#num').val(price);
+    }
+
+    $(function () {
+        if ($("input[name=bank_account]").val() == '****') {
+            loading = $(document).dialog({
+                type: 'notice',
+                infoIcon: '__CDN__/assets/common/img/loading.gif',
+                infoText: 'loading',
+                autoClose: 0
+            });
+            loading.close();
+            $(document).dialog({infoText: '{:__("Unbound bank card, go to bind!")}'});
+            setTimeout(function () {
+                window.location.href = '/user/bind_bank';
+            }, 2000);
+        }
+
+        /*检查表单*/
+        function check() {
+            if ($("input[name=num]").val() == '') {
+                $(document).dialog({infoText: '{:__("Amount empty")}'});
+                return false;
+            }
+            if ($("input[name=paypassword]").val() == '') {
+                $(document).dialog({infoText: '{:__("Please input pay password")}'});
+                return false;
+            }
+            return true;
+        }
+
+        /*点击登录*/
+        $(".save-btn").on('click', function () {
+            if (check()) {
+                var loading = null;
+                $.ajax({
+                    url: '/user/do_deposit',
+                    data: $("#login-form").serialize(),
+                    type: 'POST',
+                    beforeSend: function () {
+                        loading = $(document).dialog({
+                            type: 'notice',
+                            infoIcon: '__CDN__/assets/common/img/loading.gif',
+                            infoText: 'loading',
+                            autoClose: 0
+                        });
+                    },
+                    success: function (data) {
+                        loading.close();
+                        if (data.code == 401) {
+                            $(document).dialog({
+                                infoText: data.msg,
+                                autoClose: 2000
+                            });
+                            setTimeout(function () {
+                                window.location.href = '/user/login'
+                            }, 2000)
+                            return false
+                        }
+                        if (data.code == 1) {
+                            $(document).dialog({infoText: 'Success!'});
+                            setTimeout(function () {
+                                window.location.href = '/user/deposit';
+                            }, 2000);
+                        } else {
+                            $(document).dialog({infoText: data.msg});
+                        }
+                    }
+                });
+            }
+        })
+        $.ajax({
+            url: '/user/deposit',
+            type: 'POST',
+            success: function (res) {
+                if (res.code == 401) {
+                    $(document).dialog({
+                        infoText: res.msg,
+                        autoClose: 2000
+                    });
+                    setTimeout(function () {
+                        window.location.href = '/user/login'
+                    }, 2000)
+                    return false
+                }
+                if (res.code == 1) {
+
+                    console.log(res.data)
+                    var status = res.data.status
+
+                    if (status.code == 1) {
+                        $(".status1").css('display','block')
+                        $('.status_t').html(status.t)
+                    } else {
+                        $(".status0").css('display','block')
+                    }
+                    var info = res.data.info
+                    $(".bank_account").html(info.cardnum)
+                    if (info.cardnum == '****') {
+                        loading = $(document).dialog({
+                            type: 'notice',
+                            infoIcon: '__CDN__/assets/common/img/loading.gif',
+                            infoText: 'loading',
+                            autoClose: 0
+                        });
+                        loading.close();
+                        $(document).dialog({infoText: '{:__("Unbound bank card, go to bind!")}'});
+                        setTimeout(function () {
+                            window.location.href = '/user/bind_bank';
+                        }, 2000);
+                    }
+                    $(".shop").html(res.data.shop)
+                    $(".limit").html(res.data.limit)
+                    var user = res.data.user;
+                    $(".user_balance").html(user.balance)
+                    $(".shouxu").html(res.data.shouxu * 100)
+                }
+            }
+        })
+    })
+
+
+</script>
+
+</body>
+
+</html>
