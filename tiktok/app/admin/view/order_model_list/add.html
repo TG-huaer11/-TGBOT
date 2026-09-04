@@ -1,0 +1,59 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <input name="row[model_id]" type="hidden" value="{$model_id}">
+
+    <div class="form-group">
+        <label for="c-task_number" class="control-label col-xs-12 col-sm-2">{:__('Task_number')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-task_number" data-rule="required" class="form-control" name="row[task_number]" type="number">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-number" class="control-label col-xs-12 col-sm-2">{:__('Number')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-number" data-rule="required" class="form-control" name="row[number]" type="number">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-commission" class="control-label col-xs-12 col-sm-2">{:__('Commission')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-commission" data-rule="required" class="form-control" name="row[commission]" type="text">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-price_ratio" class="control-label col-xs-12 col-sm-2">{:__('Price_ratio')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-price_ratio" data-rule="required" class="form-control" name="row[price_ratio]" type="text">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-remark" class="control-label col-xs-12 col-sm-2">{:__('Remark')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-remark" data-rule="required" class="form-control" name="row[remark]" type="text" value="">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="radio">
+                {foreach name="statusList" item="vo"}
+                <label for="row[status]-{$key}"><input id="row[status]-{$key}" name="row[status]" type="radio" value="{$key}" {in name="key" value="1"}checked{/in} /> {$vo}</label>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
+
