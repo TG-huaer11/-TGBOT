@@ -1,0 +1,82 @@
+<style>
+    .fixed-table-container .bs-checkbox .th-inner {
+        padding: 8px 40px !important;
+    }
+
+    .fixed-table-body {
+        overflow-y: visible !important;
+        overflow-x: visible !important;
+    }
+    .dropdown-menu-right{
+        top: 0 !important;
+    }
+</style>
+<div class="panel panel-default panel-intro">
+
+    <div class="panel-heading">
+        <ul class="nav nav-tabs" data-field="status">
+            <li class="active"><a href="#t-all" data-value="" data-toggle="tab">{:__('All')}</a></li>
+            {foreach name="statusList" item="vo"}
+            <li><a href="#t-{$key}" data-value="{$key}" data-toggle="tab">{$vo}</a></li>
+            {/foreach}
+        </ul>
+    </div>
+
+    <div class="panel-body">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+                <div class="widget-body no-padding">
+
+                    <div id="toolbar" class="toolbar">
+                        {:build_toolbar('refresh,add')}
+                        {if $template == 'default'}
+                        <a class="btn btn-danger btn-multi btn-disabled disabled" href="javascript:;"
+                           data-params="status=2">{:__('Status 2')}</a>
+
+                        <a class="btn btn-success btn-multi btn-disabled disabled" href="javascript:;"
+                           data-params="status=1">{:__('Status 1')}</a>
+                        <a class="btn btn-success btn-money btn-disabled disabled" href="javascript:;" data-value="add">
+                            {:__('Money')}</a>
+                        <a class="btn btn-danger btn-money btn-disabled disabled" href="javascript:;" data-value="sub">
+                            {:__('Deduction')}</a>
+                        {/if}
+                        <a class="btn btn-success" href="javascript:;" >{$invite_code}</a>
+                        <a class="btn btn-success copy" href="javascript:;" data-clipboard-action="copy" data-clipboard-text="https://venice-mall.xyz/h5/#/pages/login/register?invite_code={$invite_code2}" class="copy ">复制链接</a>
+                        
+                        
+                         <!--  <a class="btn btn-danger btn-multi" href="{:url('kd/index')}"
+                          >批量卡单</a>-->
+                          
+                    </div>
+
+                    <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
+                           data-operate-edit="{:$auth->check('user.user/edit')}"
+                           data-operate-del="{:$auth->check('user.user/del')}"
+                           width="100%">
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/js/clipboard.min.js"></script>
+  <script type="text/javascript">
+  
+
+      
+      var clipboard = new ClipboardJS(".copy",{
+      });
+  
+      clipboard.on('success',function(e){
+        layer.msg('复制成功')
+        console.log(e);
+      });
+  
+      clipboard.on('error',function(e){
+        console.log(e);
+      });
+
+     
+  </script>
+

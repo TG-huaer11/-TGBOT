@@ -1,0 +1,49 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    {:input_token()}
+<p style="font-size:12px;color:#999">
+    批量添加账户，每次生成数10个。生成格式例如：在用户名处输入kk001.然后输入密码。自动生成kk000到kk009.  输入kk010，生成kk010到kk019.以此类推
+</p>
+    <div class="form-group">
+        <label for="c-username" class="control-label col-xs-12 col-sm-2">{:__('Username')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-username" data-rule="required" class="form-control" name="row[username]" type="text">
+        </div>
+    </div>
+    
+ <!--   <div class="form-group">
+        <label for="c-tel" class="control-label col-xs-12 col-sm-2">{:__('Tel')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-tel" data-rule="required" class="form-control" name="row[tel]" type="text">
+        </div>
+    </div>-->
+
+    <div class="form-group">
+        <label for="c-pwd" class="control-label col-xs-12 col-sm-2">{:__('Pwd')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-pwd" data-rule="required" class="form-control" name="row[pwd]" type="text"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="c-pwd2" class="control-label col-xs-12 col-sm-2">{:__('Pwd2')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-pwd2" data-rule="required" class="form-control" name="row[pwd2]" type="text" maxlength="4"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="c-totp" class="control-label col-xs-12 col-sm-2">{:__('Totp')}:</label>
+        <div class="col-xs-12 col-sm-4">
+            <input id="c-totp" data-rule="required" class="form-control" name="row[totp]" type="text">
+        </div>
+    </div>
+    
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
