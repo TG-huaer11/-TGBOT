@@ -1,5 +1,0 @@
-telethon
-customtkinter
-pillow
-pystray
-pyinstaller
